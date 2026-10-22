@@ -238,6 +238,73 @@ main{min-width:0; display:flex; flex-direction:column; gap:56px}
 .qfilter{display:flex; flex-wrap:wrap; gap:6px}
 .qfilter button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
 footer{color:var(--muted); font-size:14px; border-top:1px solid var(--line); padding-top:16px}
+
+/* visual sub-heading inside a block */
+.vh{font-family:var(--f-display); font-size:17px; font-weight:700; display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline; margin-top:6px}
+.vh small{font-family:var(--f-body); font-weight:400; font-size:14px; color:var(--muted)}
+
+/* flex gallery: every tile renders real flexbox */
+.fx-gal{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px}
+.fx-t{display:flex; flex-direction:column; gap:6px; min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px}
+.fx-t>code{align-self:flex-start; font-size:12.5px; background:var(--ks); color:var(--k); font-weight:600}
+.fx-t>p{font-size:13.5px; color:var(--muted); line-height:1.35}
+.mini{display:flex; gap:4px; background:var(--bg); border:2px dashed var(--line); border-radius:8px; padding:4px; height:86px}
+.mini b{background:var(--k); color:var(--paper); font:600 11px/1.2 var(--f-mono); border-radius:4px; display:grid; place-items:center; min-width:24px; padding:4px 7px; text-align:center}
+.mini b:nth-child(2){filter:brightness(1.15)} .mini b:nth-child(3){filter:brightness(1.3)} .mini b:nth-child(n+4){filter:brightness(.85)}
+.mini.ai{height:104px}
+.mini.ai b:nth-child(1){padding-block:6px} .mini.ai b:nth-child(2){padding-block:20px} .mini.ai b:nth-child(3){padding-block:11px}
+.mini.bl b:nth-child(2){font-size:20px} .mini.bl b:nth-child(3){font-size:14px}
+.mini.col{height:118px}
+.mini.wr{height:auto; min-height:86px} .mini.wr b{width:50px; padding-block:6px}
+.mini.ac{height:122px; flex-wrap:wrap} .mini.ac b{width:50px; padding-block:4px}
+.mini.big{height:110px}
+.axes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+@media (max-width:640px){ .axes{grid-template-columns:minmax(0,1fr)} }
+.axes figure{margin:0; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px}
+.axes figcaption{font-family:var(--f-mono); font-size:13px; font-weight:600; color:var(--k)}
+
+/* nested-box diagrams (page tree, three ways) */
+.nest{border:2px solid var(--k); border-radius:10px; padding:26px 10px 10px; position:relative; display:flex; flex-direction:column; gap:8px; background:var(--paper); min-width:0}
+.nest>.nl{position:absolute; top:4px; left:10px; font:600 12px var(--f-mono); color:var(--k)}
+.nest.soft{border-style:dashed; border-color:var(--muted)} .nest.soft>.nl{color:var(--muted)}
+.nest .row{display:flex; flex-wrap:wrap; gap:8px}
+.leaf{font:600 12px var(--f-mono); background:var(--ks); color:var(--k); border-radius:6px; padding:5px 9px}
+.leaf.note{background:transparent; color:var(--muted); font-weight:400; padding-inline:0}
+
+/* GET/POST */
+.req{display:flex; flex-direction:column; gap:8px; min-width:0}
+.urlbar{display:flex; gap:8px; align-items:center; background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 12px; font:13px var(--f-mono); overflow-x:auto; white-space:nowrap}
+.urlbar::before{content:""; width:10px; height:10px; border-radius:50%; border:2px solid var(--muted); flex:none}
+.urlbar mark{background:var(--tip-soft); color:var(--tip); font-weight:600; border-radius:4px; padding:0 3px}
+.packet{font:12.5px/1.5 var(--f-mono); background:var(--code-bg); color:var(--code-fg); border-radius:8px; padding:10px 12px; white-space:pre-wrap; overflow-wrap:anywhere}
+.packet .hl{color:var(--tk-attr); font-weight:600}
+.flow{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); flex-wrap:wrap}
+.flow span{background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:3px 8px; color:var(--ink)}
+
+/* combinators */
+.dom{font:13.5px/1.9 var(--f-mono); background:var(--bg); border-radius:10px; padding:10px 12px; overflow-x:auto}
+.dom div{padding:0 8px; border-radius:6px; white-space:pre; transition:background .25s}
+.dom div.hit{background:var(--good-soft); box-shadow:inset 3px 0 0 var(--good)}
+.dom div.ref{background:var(--ks); box-shadow:inset 3px 0 0 var(--k)}
+.dom div em{font-style:normal; color:var(--muted); font-family:var(--f-body); font-size:12.5px}
+
+/* display vs visibility */
+.dv{display:flex; gap:8px; align-items:flex-start; background:var(--bg); border-radius:10px; padding:10px; min-height:74px}
+.dv>div{background:var(--k); color:var(--paper); border-radius:8px; padding:14px 18px; font:600 13px var(--f-mono)}
+.dv>div.target{background:var(--html)}
+
+/* timing race */
+.race{display:flex; flex-direction:column; gap:6px}
+.lane{display:grid; grid-template-columns:110px minmax(0,1fr); gap:10px; align-items:center; font:12.5px var(--f-mono)}
+.track{position:relative; height:26px; background:var(--bg); border-radius:99px}
+.track i{position:absolute; left:3px; top:3px; width:20px; height:20px; border-radius:50%; background:var(--k); transition:left 2s var(--tf)}
+.race.go .track i{left:calc(100% - 23px)}
+
+/* breakpoint ruler */
+.ruler{display:flex; border-radius:10px; overflow:hidden; border:1px solid var(--line); min-width:520px}
+.ruler div{padding:8px 6px; display:flex; flex-direction:column; gap:2px; font-size:12px; color:var(--paper); background:var(--k); border-right:1px solid var(--paper)}
+.ruler div:nth-child(2){filter:brightness(1.1)} .ruler div:nth-child(3){filter:brightness(1.2)} .ruler div:nth-child(4){filter:brightness(1.3)} .ruler div:nth-child(5){filter:brightness(1.4)} .ruler div:nth-child(6){filter:brightness(1.5)}
+.ruler b{font:700 14px var(--f-mono)}
 </style>
 
 </head>
@@ -322,6 +389,18 @@ footer{color:var(--muted); font-size:14px; border-top:1px solid var(--line); pad
   </body>
 </html>
       </script>
+      <div class="vh">The page as a family tree <small>every tag sits inside its parent</small></div>
+      <div class="nest"><span class="nl">&lt;html&gt; — the root, wraps everything</span>
+        <div class="grid2">
+          <div class="nest soft"><span class="nl">&lt;head&gt; — invisible info</span>
+            <div class="row"><span class="leaf">&lt;title&gt;</span><span class="leaf">&lt;meta&gt;</span><span class="leaf">&lt;style&gt;</span><span class="leaf">&lt;link&gt;</span></div>
+            <span class="leaf note">Shown on the tab, read by the browser</span>
+          </div>
+          <div class="nest"><span class="nl">&lt;body&gt; — what visitors see</span>
+            <div class="row"><span class="leaf">&lt;h1&gt;…&lt;h6&gt;</span><span class="leaf">&lt;p&gt;</span><span class="leaf">&lt;a&gt;</span><span class="leaf">&lt;img&gt;</span><span class="leaf">&lt;ul&gt; &lt;ol&gt;</span><span class="leaf">&lt;table&gt;</span><span class="leaf">&lt;form&gt;</span></div>
+          </div>
+        </div>
+      </div>
       <div class="grid3">
         <div class="card"><h4>&lt;head&gt;</h4><p>Information about the page: title, styles, meta. Not shown in the page body.</p></div>
         <div class="card"><h4>&lt;title&gt;</h4><p>Text shown on the browser tab.</p></div>
@@ -736,6 +815,29 @@ circle → coords = center x,y , radius</div>
         <div class="card" style="border-top:4px solid var(--good)"><h4>POST</h4><ul><li>Data goes <b>in the request body</b>, not visible in URL</li><li><b>More secure</b>: use for passwords</li><li><b>No strict size limit</b></li><li>For large or sensitive data</li></ul>
           <div class="readout">/submit   (data hidden in body)</div></div>
       </div>
+      <div class="vh">What actually travels to the server <small>same form, two methods</small></div>
+      <div class="grid2">
+        <div class="widget req">
+          <b style="font-family:var(--f-display)">method="GET"</b>
+          <div class="urlbar">example.com/submit<mark>?username=ali&amp;city=lahore</mark></div>
+          <div class="flow"><span>Browser</span>→<span>data glued to the URL</span>→<span>Server</span></div>
+          <div class="packet"><span class="hl">GET /submit?username=ali&amp;city=lahore</span> HTTP/1.1
+Host: example.com
+
+(no body)</div>
+          <p style="font-size:14px; color:var(--muted)">Anyone looking at the screen, the history or a bookmark can see the data.</p>
+        </div>
+        <div class="widget req">
+          <b style="font-family:var(--f-display)">method="POST"</b>
+          <div class="urlbar">example.com/submit</div>
+          <div class="flow"><span>Browser</span>→<span>data sealed in the body</span>→<span>Server</span></div>
+          <div class="packet">POST /submit HTTP/1.1
+Host: example.com
+
+<span class="hl">username=ali&amp;password=••••••</span></div>
+          <p style="font-size:14px; color:var(--muted)">The URL stays clean; the data rides inside the request body.</p>
+        </div>
+      </div>
       <div class="mnemonic"><b>Memory trick:</b> GET is like a <b>postcard</b> (anyone can read it). POST is like a <b>sealed envelope</b>.</div>
     </div>
 
@@ -834,6 +936,28 @@ circle → coords = center x,y , radius</div>
         <tr><td>Internal / Embedded</td><td><code>&lt;style&gt;</code> inside <code>&lt;head&gt;</code></td><td>Styling all instances of an element in <b>one page</b></td><td><code>&lt;style&gt;h1{color:red}&lt;/style&gt;</code></td></tr>
         <tr><td>External</td><td>Separate <code>.css</code> file, linked with <code>&lt;link&gt;</code></td><td>Styling an <b>entire website</b></td><td><code>&lt;link rel="stylesheet" href="mystyle.css"&gt;</code></td></tr>
       </table></div>
+      <div class="vh">Where each type lives <small>from closest to the element to furthest away</small></div>
+      <div class="grid3">
+        <div class="nest"><span class="nl">page.html</span>
+          <div class="nest soft"><span class="nl">&lt;body&gt;</span>
+            <span class="leaf">&lt;h1 <b style="color:var(--html)">style="color:red"</b>&gt;</span>
+          </div>
+          <span class="leaf note"><b>Inline:</b> styles one tag only</span>
+        </div>
+        <div class="nest"><span class="nl">page.html</span>
+          <div class="nest soft"><span class="nl">&lt;head&gt;</span>
+            <span class="leaf">&lt;style&gt; h1 {color:red} &lt;/style&gt;</span>
+          </div>
+          <span class="leaf note"><b>Internal:</b> styles this one page</span>
+        </div>
+        <div class="nest"><span class="nl">page1 · page2 · page3 .html</span>
+          <div class="nest soft"><span class="nl">&lt;head&gt;</span>
+            <span class="leaf">&lt;link href="mystyle.css"&gt;</span>
+          </div>
+          <div class="nest" style="border-color:var(--good)"><span class="nl" style="color:var(--good)">mystyle.css</span><span class="leaf">h1 {color:red}</span></div>
+          <span class="leaf note"><b>External:</b> one file styles the whole site</span>
+        </div>
+      </div>
       <div class="grid2">
         <script type="text/plain" class="snip" data-lang="css" data-title="mystyle.css (no <style> tags inside!)">
 h1 { color: red; font-family: calibri; }
@@ -978,6 +1102,21 @@ p  { font-size: 14px; }
 <div class="grow"></div>
       </script>
       <p>A <b>transition</b> lets an element change <b>gradually</b> from one style to another, without Flash or JavaScript.</p>
+      <div class="widget">
+        <div class="ctrls"><b style="font-family:var(--f-display)">Timing functions race</b><button class="btn" type="button" id="raceBtn">Run the race</button><span style="font-size:13.5px; color:var(--muted)">All take 2s; they differ in <b>speed during</b> the move.</span></div>
+        <div class="race" id="race">
+          <div class="lane"><span>ease</span><div class="track"><i style="--tf:ease"></i></div></div>
+          <div class="lane"><span>linear</span><div class="track"><i style="--tf:linear"></i></div></div>
+          <div class="lane"><span>ease-in</span><div class="track"><i style="--tf:ease-in"></i></div></div>
+          <div class="lane"><span>ease-out</span><div class="track"><i style="--tf:ease-out"></i></div></div>
+          <div class="lane"><span>ease-in-out</span><div class="track"><i style="--tf:ease-in-out"></i></div></div>
+        </div>
+        <div class="readout">ease        slow start, fast, slow end (default)
+linear      same speed the whole way
+ease-in     slow start
+ease-out    slow end
+ease-in-out slow start and slow end</div>
+      </div>
       <script type="text/plain" class="snip" data-lang="html" data-live data-title="Multiple columns (like a newspaper)">
 <style>
   .news { column-count: 3; column-gap: 40px; column-rule: 3px outset #ff00ff; }
@@ -1125,6 +1264,12 @@ p  { font-size: 14px; }
         <tr><td>Space</td><td>Page shows as if the element is not there</td><td>Still takes up the same space</td></tr>
         <tr><td>Layout</td><td>Does not affect layout</td><td>Still affects the layout</td></tr>
       </table></div>
+      <div class="widget">
+        <div class="ctrls"><b style="font-family:var(--f-display)">Hide box B:</b>
+          <span class="seg" role="group" aria-label="hide method" id="dvSeg"><button type="button" data-v="show" aria-pressed="true">visible</button><button type="button" data-v="none" aria-pressed="false">display: none</button><button type="button" data-v="hidden" aria-pressed="false">visibility: hidden</button></span></div>
+        <div class="dv"><div>A</div><div class="target" id="dvB">B</div><div>C</div></div>
+        <div class="readout" id="dvOut">B is visible.</div>
+      </div>
       <div class="card k"><h4>display: inline-block</h4><p>Like inline (sits in a line, wraps nicely) but <b>can have a width and height</b>. An easier way to make a grid of boxes than float.</p></div>
     </div>
 
@@ -1183,6 +1328,22 @@ p  { font-size: 14px; }
         <tr><td>Adjacent sibling</td><td><code>+</code></td><td><code>div + p</code></td><td>The &lt;p&gt; immediately after a &lt;div&gt;</td></tr>
         <tr><td>General sibling</td><td><code>~</code></td><td><code>p ~ ul</code></td><td>All &lt;ul&gt; after a &lt;p&gt; (same parent)</td></tr>
       </table></div>
+      <div class="widget">
+        <div class="ctrls"><b style="font-family:var(--f-display)">Which &lt;p&gt; gets selected?</b>
+          <span class="seg" role="group" aria-label="combinator" id="cbSeg"><button type="button" data-c="desc" aria-pressed="true">div p</button><button type="button" data-c="child" aria-pressed="false">div &gt; p</button><button type="button" data-c="adj" aria-pressed="false">div + p</button><button type="button" data-c="gen" aria-pressed="false">div ~ p</button></span></div>
+        <div class="dom" id="cbDom">
+          <div class="ref">&lt;div&gt;                  <em>← the reference div</em></div>
+          <div data-m="desc child">  &lt;p&gt;A&lt;/p&gt;           <em>direct child</em></div>
+          <div>  &lt;span&gt;</div>
+          <div data-m="desc">    &lt;p&gt;B&lt;/p&gt;         <em>grandchild (inside span)</em></div>
+          <div>  &lt;/span&gt;</div>
+          <div class="ref">&lt;/div&gt;</div>
+          <div data-m="adj gen">&lt;p&gt;C&lt;/p&gt;             <em>right after the div</em></div>
+          <div>&lt;ul&gt;…&lt;/ul&gt;</div>
+          <div data-m="gen">&lt;p&gt;D&lt;/p&gt;             <em>later sibling</em></div>
+        </div>
+        <div class="readout" id="cbOut"></div>
+      </div>
       <div class="grid2">
         <div class="card k"><h4>Pseudo-class <code>selector:pseudo-class</code></h4><p>A special <b>state</b> of an element.</p><p><code>:hover :focus :checked :disabled :first-child :last-child :nth-child(n) :not(p) :required :valid</code></p></div>
         <div class="card k"><h4>Pseudo-element <code>selector::pseudo-element</code></h4><p>A specific <b>part</b> of an element.</p><p><code>::before ::after ::first-letter ::first-line ::selection</code></p></div>
@@ -1246,13 +1407,119 @@ p  { font-size: 14px; }
       <div class="widget">
         <div class="ctrls">
           <label>flex-direction <select id="fxDir"><option>row</option><option>row-reverse</option><option>column</option><option>column-reverse</option></select></label>
-          <label>justify-content <select id="fxJus"><option>flex-start</option><option>flex-end</option><option selected>center</option><option>space-between</option><option>space-around</option></select></label>
+          <label>justify-content <select id="fxJus"><option>flex-start</option><option>flex-end</option><option selected>center</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></label>
           <label>align-items <select id="fxAli"><option>stretch</option><option>flex-start</option><option>flex-end</option><option selected>center</option><option>baseline</option></select></label>
           <label>flex-wrap <select id="fxWrp"><option>nowrap</option><option>wrap</option><option>wrap-reverse</option></select></label>
         </div>
         <div class="flexbox" id="fxBox"><div>1</div><div>2</div><div>3</div><div>4</div></div>
         <div class="readout" id="fxOut"></div>
       </div>
+      <div class="vh">Main axis vs cross axis <small>understand this and every flex property makes sense</small></div>
+      <div class="axes">
+        <figure>
+          <figcaption>flex-direction: row (default)</figcaption>
+          <svg viewBox="0 0 300 170" style="width:100%" role="img" aria-label="Row: main axis horizontal, cross axis vertical">
+            <defs><marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--html)"/></marker>
+            <marker id="arB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--good)"/></marker></defs>
+            <rect x="44" y="34" width="240" height="110" rx="8" fill="var(--bg)" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 4"/>
+            <rect x="52" y="42" width="40" height="40" rx="5" fill="var(--css)"/><text x="72" y="67" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">1</text>
+            <rect x="98" y="42" width="40" height="40" rx="5" fill="var(--css)"/><text x="118" y="67" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">2</text>
+            <rect x="144" y="42" width="40" height="40" rx="5" fill="var(--css)"/><text x="164" y="67" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">3</text>
+            <line x1="52" y1="20" x2="276" y2="20" stroke="var(--html)" stroke-width="2.5" marker-end="url(#arA)"/>
+            <text x="164" y="13" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--html)">MAIN axis → justify-content</text>
+            <line x1="28" y1="42" x2="28" y2="136" stroke="var(--good)" stroke-width="2.5" marker-end="url(#arB)"/>
+            <text x="16" y="90" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--good)" transform="rotate(-90 16 90)">CROSS axis → align-items</text>
+            <text x="164" y="162" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--muted)">items flow left → right</text>
+          </svg>
+        </figure>
+        <figure>
+          <figcaption>flex-direction: column</figcaption>
+          <svg viewBox="0 0 300 170" style="width:100%" role="img" aria-label="Column: main axis vertical, cross axis horizontal">
+            <rect x="44" y="34" width="240" height="122" rx="8" fill="var(--bg)" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 4"/>
+            <rect x="52" y="40" width="40" height="34" rx="5" fill="var(--css)"/><text x="72" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">1</text>
+            <rect x="52" y="78" width="40" height="34" rx="5" fill="var(--css)"/><text x="72" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">2</text>
+            <rect x="52" y="116" width="40" height="34" rx="5" fill="var(--css)"/><text x="72" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="var(--paper)">3</text>
+            <line x1="28" y1="42" x2="28" y2="148" stroke="var(--html)" stroke-width="2.5" marker-end="url(#arA)"/>
+            <text x="16" y="95" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--html)" transform="rotate(-90 16 95)">MAIN → justify-content</text>
+            <line x1="52" y1="20" x2="276" y2="20" stroke="var(--good)" stroke-width="2.5" marker-end="url(#arB)"/>
+            <text x="164" y="13" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" fill="var(--good)">CROSS axis → align-items</text>
+            <text x="190" y="100" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--muted)">items flow top → bottom</text>
+          </svg>
+        </figure>
+      </div>
+      <div class="mnemonic"><b>Golden rule:</b> <b>J</b>ustify = <b>J</b>ourney along the main axis. <b>A</b>lign = <b>A</b>cross (the cross axis). In a <code>row</code> justify is horizontal; in a <code>column</code> the two swap, so justify becomes vertical.</div>
+
+      <div class="vh">justify-content <small>spacing along the main axis</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini" style="justify-content:flex-start"><b>1</b><b>2</b><b>3</b></div><code>flex-start</code><p>Packed at the start. This is the default.</p></div>
+        <div class="fx-t"><div class="mini" style="justify-content:flex-end"><b>1</b><b>2</b><b>3</b></div><code>flex-end</code><p>Packed at the end.</p></div>
+        <div class="fx-t"><div class="mini" style="justify-content:center"><b>1</b><b>2</b><b>3</b></div><code>center</code><p>Packed in the middle.</p></div>
+        <div class="fx-t"><div class="mini" style="justify-content:space-between; gap:0"><b>1</b><b>2</b><b>3</b></div><code>space-between</code><p>First and last touch the edges; equal gaps <b>between</b> items.</p></div>
+        <div class="fx-t"><div class="mini" style="justify-content:space-around; gap:0"><b>1</b><b>2</b><b>3</b></div><code>space-around</code><p>Equal space <b>around</b> each item, so the edges get half a gap.</p></div>
+        <div class="fx-t"><div class="mini" style="justify-content:space-evenly; gap:0"><b>1</b><b>2</b><b>3</b></div><code>space-evenly</code><p>Every gap, edges included, is exactly equal.</p></div>
+      </div>
+
+      <div class="vh">align-items <small>position on the cross axis (items have different heights)</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini ai" style="align-items:stretch"><b>1</b><b>2</b><b>3</b></div><code>stretch</code><p>Items stretch to fill the height. This is the default.</p></div>
+        <div class="fx-t"><div class="mini ai" style="align-items:flex-start"><b>1</b><b>2</b><b>3</b></div><code>flex-start</code><p>Lined up at the top.</p></div>
+        <div class="fx-t"><div class="mini ai" style="align-items:flex-end"><b>1</b><b>2</b><b>3</b></div><code>flex-end</code><p>Lined up at the bottom.</p></div>
+        <div class="fx-t"><div class="mini ai" style="align-items:center"><b>1</b><b>2</b><b>3</b></div><code>center</code><p>Centred vertically.</p></div>
+        <div class="fx-t"><div class="mini bl" style="align-items:baseline"><b>Aa</b><b>Aa</b><b>Aa</b></div><code>baseline</code><p>The bottoms of the <b>text</b> line up, whatever the font size.</p></div>
+      </div>
+
+      <div class="vh">flex-direction <small>which way the main axis runs</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini col" style="flex-direction:row; align-items:flex-start"><b>1</b><b>2</b><b>3</b></div><code>row</code><p>Left to right. Default.</p></div>
+        <div class="fx-t"><div class="mini col" style="flex-direction:row-reverse; align-items:flex-start"><b>1</b><b>2</b><b>3</b></div><code>row-reverse</code><p>Right to left: order flips and items start from the right.</p></div>
+        <div class="fx-t"><div class="mini col" style="flex-direction:column; align-items:flex-start"><b>1</b><b>2</b><b>3</b></div><code>column</code><p>Top to bottom, like normal block elements.</p></div>
+        <div class="fx-t"><div class="mini col" style="flex-direction:column-reverse; align-items:flex-start"><b>1</b><b>2</b><b>3</b></div><code>column-reverse</code><p>Bottom to top.</p></div>
+      </div>
+
+      <div class="vh">flex-wrap <small>six 50px items in a narrow box</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini wr" style="flex-wrap:nowrap"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>nowrap</code><p>Default. Everything is forced onto <b>one line</b>; items shrink.</p></div>
+        <div class="fx-t"><div class="mini wr" style="flex-wrap:wrap"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>wrap</code><p>Items that don't fit move to a <b>new line below</b>.</p></div>
+        <div class="fx-t"><div class="mini wr" style="flex-wrap:wrap-reverse"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>wrap-reverse</code><p>Wraps, but new lines go <b>above</b>.</p></div>
+      </div>
+
+      <div class="vh">align-content <small>spaces the <b>lines</b> — only works with wrap and 2+ lines</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini ac" style="align-content:flex-start"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>flex-start</code><p>Lines packed at the top.</p></div>
+        <div class="fx-t"><div class="mini ac" style="align-content:center"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>center</code><p>Lines packed in the middle.</p></div>
+        <div class="fx-t"><div class="mini ac" style="align-content:space-between"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>space-between</code><p>First line at top, last at bottom.</p></div>
+        <div class="fx-t"><div class="mini ac" style="align-content:stretch"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></div><code>stretch</code><p>Lines stretch to fill the space. Default.</p></div>
+      </div>
+      <div class="tip"><b>align-items vs align-content:</b> align-items places <b>items inside each line</b>; align-content places the <b>lines themselves</b>, and does nothing when there is only one line.</div>
+
+      <div class="vh">Flex item properties <small>set on the children, not the container</small></div>
+      <div class="fx-gal">
+        <div class="fx-t"><div class="mini big" style="align-items:center"><b style="order:2">A<br>order:2</b><b style="order:3">B<br>order:3</b><b style="order:1">C<br>order:1</b></div><code>order</code><p>Written A, B, C in HTML but shown <b>C, A, B</b>. Lower order comes first (default 0).</p></div>
+        <div class="fx-t"><div class="mini big" style="align-items:center"><b style="flex:1">flex:1</b><b style="flex:2">flex:2</b><b style="flex:1">flex:1</b></div><code>flex</code><p>Shares the free space by <b>weight</b>: the middle item gets twice as much.</p></div>
+        <div class="fx-t"><div class="mini big" style="align-items:flex-start"><b>1</b><b style="align-self:flex-end">align-self<br>flex-end</b><b>3</b></div><code>align-self</code><p>Overrides the container's align-items for <b>one item</b>.</p></div>
+        <div class="fx-t"><div class="mini big" style="align-items:center"><b>Logo</b><b style="margin-left:auto">Home</b><b>Login</b></div><code>margin-left: auto</code><p>Absorbs the extra space and pushes items to the far side.</p></div>
+      </div>
+
+      <div class="vh">Recipes you can write in the exam</div>
+      <div class="grid2">
+        <div class="fx-t"><div class="mini big" style="justify-content:center; align-items:center"><b>Centre</b></div><code>justify-content:center; align-items:center;</code><p>Perfect centring, both directions.</p></div>
+        <div class="fx-t"><div class="mini big" style="justify-content:space-between; align-items:center"><b>Logo</b><span style="display:flex; gap:4px"><b>Home</b><b>About</b><b>Contact</b></span></div><code>justify-content:space-between; align-items:center;</code><p>Navbar: logo on the left, links on the right.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Flexbox navbar — complete exam answer">
+<style>
+  .nav { display: flex; justify-content: space-between; align-items: center;
+         background: #333; padding: 10px 16px; }
+  .nav a { color: white; text-decoration: none; margin-left: 14px; }
+  .logo { color: #ffd479; font-weight: bold; }
+</style>
+<div class="nav">
+  <span class="logo">MySite</span>
+  <div>
+    <a href="#">Home</a> <a href="#">About</a> <a href="#">Contact</a>
+  </div>
+</div>
+      </script>
+
       <div class="grid2">
         <div class="card k"><h4>Container properties</h4><ul><li><code>flex-direction</code></li><li><code>justify-content</code> — <b>horizontal</b> (main axis)</li><li><code>align-items</code> — <b>vertical</b> (cross axis)</li><li><code>align-content</code> — for flex lines</li><li><code>flex-wrap</code></li></ul></div>
         <div class="card k"><h4>Item properties</h4><ul><li><code>order</code> — order inside the container</li><li><code>margin: auto</code> — perfect centring</li><li><code>align-self</code> — overrides align-items for one item</li><li><code>flex</code> — weight of the item's length</li></ul></div>
@@ -1429,6 +1696,15 @@ p  { font-size: 14px; }
         </div>
         <div class="readout">&lt;div class="col-12 col-md-6 col-lg-4"&gt; ×3  +  &lt;div class="col-md-8 col-12"&gt;Main&lt;/div&gt;&lt;div class="col-md-4 col-12"&gt;Side Bar&lt;/div&gt;</div>
       </div>
+      <div class="vh">Breakpoint ruler <small>width of each band is to scale (0 – 1600px)</small></div>
+      <div style="overflow-x:auto"><div class="ruler">
+        <div style="flex:576"><b>xs</b>0–575px<span>phones</span></div>
+        <div style="flex:192"><b>sm</b>≥576<span>large phones</span></div>
+        <div style="flex:224"><b>md</b>≥768<span>tablets</span></div>
+        <div style="flex:208"><b>lg</b>≥992<span>laptops</span></div>
+        <div style="flex:200"><b>xl</b>≥1200<span>desktops</span></div>
+        <div style="flex:200"><b>xxl</b>≥1400<span>big screens</span></div>
+      </div></div>
       <div class="tbl"><table>
         <tr><th>Screen width</th><th>Class infix</th><th>Breakpoint</th></tr>
         <tr><td>0 – 576px</td><td>none (<code>col-</code>)</td><td>X-Small</td></tr>
@@ -1773,6 +2049,42 @@ p  { font-size: 14px; }
   /* transforms: tap toggles on touch */
   document.querySelectorAll('.tf').forEach(function(t){ t.addEventListener('click', function(){ t.classList.toggle('on'); }); });
 
+  /* ---------- timing race ---------- */
+  var race = document.getElementById('race');
+  document.getElementById('raceBtn').addEventListener('click', function(){
+    var btn = this;
+    if (race.classList.contains('go')) { race.classList.remove('go'); btn.textContent = 'Run the race'; }
+    else { race.classList.add('go'); btn.textContent = 'Reset'; }
+  });
+
+  /* ---------- display vs visibility ---------- */
+  var dvNotes = {
+    show: 'B is visible.',
+    none: 'display: none → B is removed. C slides left into its place, as if B never existed.',
+    hidden: 'visibility: hidden → B is invisible, but its empty space stays and C does not move.'
+  };
+  document.querySelectorAll('#dvSeg button').forEach(function(x){ x.addEventListener('click', function(){
+    var v = x.dataset.v, b = document.getElementById('dvB');
+    document.querySelectorAll('#dvSeg button').forEach(function(y){ y.setAttribute('aria-pressed', y === x); });
+    b.style.display = v === 'none' ? 'none' : ''; b.style.visibility = v === 'hidden' ? 'hidden' : '';
+    document.getElementById('dvOut').textContent = dvNotes[v];
+  }); });
+
+  /* ---------- combinators ---------- */
+  var cbNotes = {
+    desc: 'div p  (descendant, space) → A and B: every <p> inside the div, at any depth.',
+    child: 'div > p  (child) → only A: B is inside a <span>, so it is not a direct child.',
+    adj: 'div + p  (adjacent sibling) → only C: the <p> immediately after the div.',
+    gen: 'div ~ p  (general sibling) → C and D: every <p> after the div with the same parent.'
+  };
+  function setCb(c){
+    document.querySelectorAll('#cbSeg button').forEach(function(y){ y.setAttribute('aria-pressed', y.dataset.c === c); });
+    document.querySelectorAll('#cbDom [data-m]').forEach(function(r){ r.classList.toggle('hit', r.dataset.m.split(' ').indexOf(c) > -1); });
+    document.getElementById('cbOut').textContent = cbNotes[c];
+  }
+  document.querySelectorAll('#cbSeg button').forEach(function(x){ x.addEventListener('click', function(){ setCb(x.dataset.c); }); });
+  setCb('desc');
+
   /* ---------- quiz ---------- */
   var Q = [
     ['L1','Which extension can an HTML file have?',['.ht','.htm','.hml','.xhtml only'],1,'HTML files use .html or .htm.'],
@@ -1823,6 +2135,14 @@ p  { font-size: 14px; }
     ['L6','A responsive grid view usually has:',['6 columns','10 columns','12 columns','16 columns'],2,'12 columns, 100% total width.'],
     ['L6','Which unit is relative to the root element\'s font size?',['em','rem','vh','pt'],1,'rem = root em.'],
     ['L6','box-sizing: border-box means width includes:',['margin','padding and border','only content','outline'],1,'Padding and border are included.'],
+    ['L6','Which value puts equal gaps BETWEEN items, with the first and last touching the edges?',['space-around','space-evenly','space-between','center'],2,'space-between: no space at the edges, equal gaps between.'],
+    ['L6','Which value makes every gap, including the edges, exactly equal?',['space-around','space-evenly','space-between','stretch'],1,'space-evenly. space-around gives the edges only half a gap.'],
+    ['L6','In flex-direction: column, justify-content works:',['horizontally','vertically','diagonally','not at all'],1,'Column makes the main axis vertical, so justify-content becomes vertical.'],
+    ['L6','The default value of align-items is:',['flex-start','center','stretch','baseline'],2,'Items stretch to fill the cross axis by default.'],
+    ['L6','align-content only has an effect when:',['there is one item','items wrap onto 2+ lines','direction is column','display is grid'],1,'It spaces the lines, so it needs flex-wrap and more than one line.'],
+    ['L6','To perfectly centre one box inside a flex container you use:',['text-align:center','justify-content:center + align-items:center','float:center','margin:center'],1,'Centre on both axes.'],
+    ['L6','An item with order:1 and others with order:0 (default) will appear:',['first','last','in the middle','hidden'],1,'Lower order comes first; 0 < 1, so it goes last.'],
+    ['L6','Which property overrides align-items for a single flex item?',['justify-self','align-self','order','flex'],1,'align-self on the item.'],
     ['L7','Bootstrap 5 no longer requires:',['CSS','HTML','jQuery','Popper'],2,'jQuery is not required in BS5.'],
     ['L7','Max columns in a Bootstrap row:',['6','10','12','16'],2,'Up to 12 columns.'],
     ['L7','The md breakpoint starts at:',['576px','768px','992px','1200px'],1,'sm 576, md 768, lg 992, xl 1200, xxl 1400.'],
