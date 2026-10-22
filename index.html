@@ -1,0 +1,1874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Visual revision guide for Web Technology: HTML, HTML5, tables, forms, CSS3 and Bootstrap 5, with live examples and a quiz.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+<title>Web Technology Exam Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: sticky lecture rail on the left, one reading column; each lecture colour-coded by language (HTML orange, CSS blue, Bootstrap purple) */
+:root{
+  --bg:#f6f7fb; --paper:#ffffff; --ink:#151a2d; --muted:#5b6380; --line:#dde1ee;
+  --html:#d9481f; --html-soft:#fdebe4;
+  --css:#2557d6; --css-soft:#e6edfd;
+  --bs:#7046c2; --bs-soft:#efe8fb;
+  --good:#11845b; --good-soft:#e1f5ec; --bad:#c92a3b; --bad-soft:#fbe5e8;
+  --tip:#9a6700; --tip-soft:#fff5d6;
+  --code-bg:#1b2033; --code-fg:#e6e9f5; --code-dim:#8790b3;
+  --tk-tag:#ff8a65; --tk-attr:#ffd479; --tk-str:#9be59b; --tk-prop:#7fb8ff; --tk-punc:#aab2d4; --tk-com:#7a83a6; --tk-sel:#f7a6ff;
+  --out-bg:#ffffff; --out-fg:#151a2d;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10131f; --paper:#171b2b; --ink:#e8ebf6; --muted:#9aa2c0; --line:#2a3047;
+  --html:#ff7a52; --html-soft:#3a2219; --css:#6f98ff; --css-soft:#1b2747; --bs:#a985f0; --bs-soft:#2a2143;
+  --good:#3fcf93; --good-soft:#123326; --bad:#ff6b7c; --bad-soft:#3b1820; --tip:#f2c14e; --tip-soft:#33290f;
+  --code-bg:#0b0e18; --out-bg:#f4f5fa; --out-fg:#151a2d; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#10131f; --paper:#171b2b; --ink:#e8ebf6; --muted:#9aa2c0; --line:#2a3047;
+  --html:#ff7a52; --html-soft:#3a2219; --css:#6f98ff; --css-soft:#1b2747; --bs:#a985f0; --bs-soft:#2a2143;
+  --good:#3fcf93; --good-soft:#123326; --bad:#ff6b7c; --bad-soft:#3b1820; --tip:#f2c14e; --tip-soft:#33290f;
+  --code-bg:#0b0e18; --out-bg:#f4f5fa; --out-fg:#151a2d; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important; animation:none!important} }
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.6}
+a{color:inherit}
+code{font-family:var(--f-mono); font-size:.86em; background:var(--line); padding:.08em .35em; border-radius:4px; overflow-wrap:anywhere}
+h1,h2,h3,h4{font-family:var(--f-display); text-wrap:balance; line-height:1.15; margin:0}
+p{margin:0}
+ul{margin:0; padding-left:1.2em}
+li+li{margin-top:.2em}
+
+.shell{display:grid; grid-template-columns:250px minmax(0,1fr); gap:40px; max-width:1180px; margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:28px 80px}
+@media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr); gap:0} }
+
+/* rail */
+.rail{position:sticky; top:calc(env(safe-area-inset-top,0px) + 20px); align-self:start; display:flex; flex-direction:column; gap:14px}
+.rail .brand{font-family:var(--f-display); font-weight:800; font-size:22px; line-height:1.1}
+.rail .brand small{display:block; font-family:var(--f-body); font-weight:400; font-size:13px; color:var(--muted); margin-top:4px}
+.prog{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px}
+.prog .bar{height:8px; background:var(--line); border-radius:99px; overflow:hidden; margin-top:6px}
+.prog .bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--html),var(--css),var(--bs)); transition:width .4s}
+.prog span{font-size:13px; color:var(--muted)}
+.nav{display:flex; flex-direction:column; gap:2px}
+.nav a{display:flex; gap:10px; align-items:center; text-decoration:none; padding:7px 10px; border-radius:8px; font-size:15px; color:var(--muted)}
+.nav a:hover,.nav a:focus-visible{background:var(--paper); color:var(--ink); outline:none}
+.nav a .dot{width:10px; height:10px; border-radius:3px; flex:none; border:2px solid currentColor}
+.nav a.done .dot{background:currentColor}
+.nav a[data-k="html"] .dot{color:var(--html)} .nav a[data-k="css"] .dot{color:var(--css)} .nav a[data-k="bs"] .dot{color:var(--bs)} .nav a[data-k="x"] .dot{color:var(--good)}
+.nav .grp{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:10px 10px 2px}
+@media (max-width:900px){
+  .rail{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--bg); margin:0 calc(-1 * max(16px, env(safe-area-inset-left,0px))); padding:10px max(16px, env(safe-area-inset-left,0px)); border-bottom:1px solid var(--line); gap:8px}
+  body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--bg)}
+  .rail .brand small,.nav .grp{display:none}
+  .rail .brand{font-size:17px}
+  .nav{flex-direction:row; overflow-x:auto; gap:4px; scrollbar-width:none}
+  .nav a{white-space:nowrap; padding:5px 10px; background:var(--paper); border:1px solid var(--line); font-size:14px}
+  .prog{padding:6px 10px} .prog .bar{margin-top:3px}
+}
+
+main{min-width:0; display:flex; flex-direction:column; gap:56px}
+
+/* hero */
+.hero{display:flex; flex-direction:column; gap:18px; padding-top:8px}
+.hero .eyebrow{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.hero h1{font-size:clamp(34px,5vw,54px); font-weight:800; letter-spacing:-.02em}
+.hero h1 em{font-style:normal; color:var(--html)} .hero h1 b{color:var(--css)} .hero h1 u{text-decoration:none; color:var(--bs)}
+.hero p.lead{font-size:19px; color:var(--muted); max-width:62ch}
+.map{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px}
+@media (max-width:640px){ .map{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.map a{display:flex; flex-direction:column; gap:4px; text-decoration:none; padding:12px; border-radius:10px; background:var(--paper); border:1px solid var(--line); border-top:4px solid var(--k)}
+.map a:hover{border-color:var(--k)}
+.map a b{font-family:var(--f-display); font-size:15px}
+.map a span{font-size:13px; color:var(--muted); line-height:1.35}
+.howto{display:flex; flex-wrap:wrap; gap:8px 18px; font-size:15px; color:var(--muted)}
+.howto span::before{content:"→ "; color:var(--ink)}
+
+/* lecture sections */
+.lec{--k:var(--html); --ks:var(--html-soft); display:flex; flex-direction:column; gap:26px; scroll-margin-top:80px}
+.lec.css{--k:var(--css); --ks:var(--css-soft)} .lec.bs{--k:var(--bs); --ks:var(--bs-soft)} .lec.x{--k:var(--good); --ks:var(--good-soft)}
+.lec-head{display:flex; flex-direction:column; gap:10px; padding-bottom:18px; border-bottom:2px solid var(--k)}
+.lec-head .tag{display:inline-flex; align-self:flex-start; gap:8px; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--k); background:var(--ks); padding:3px 10px; border-radius:99px}
+.lec-head h2{font-size:clamp(28px,3.6vw,38px); font-weight:800; letter-spacing:-.01em}
+.lec-head p{color:var(--muted); max-width:65ch}
+.lec-head label{display:inline-flex; gap:8px; align-items:center; font-size:15px; cursor:pointer; align-self:flex-start; padding:5px 12px; border-radius:8px; border:1px solid var(--line); background:var(--paper)}
+.lec-head input{accent-color:var(--k); width:17px; height:17px}
+
+.block{display:flex; flex-direction:column; gap:12px}
+.block>h3{font-size:22px; font-weight:700; display:flex; gap:10px; align-items:baseline}
+.block>h3 .n{font-family:var(--f-mono); font-size:13px; color:var(--k); font-weight:600}
+.block>p,.block>ul{max-width:68ch}
+.kw{color:var(--k); font-weight:700}
+
+.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px}
+@media (max-width:700px){ .grid2,.grid3{grid-template-columns:minmax(0,1fr)} }
+.card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; min-width:0}
+.card h4{font-size:16px; font-weight:700}
+.card p,.card li{font-size:15.5px}
+.card.k{border-left:4px solid var(--k)}
+
+.tip{background:var(--tip-soft); border-radius:10px; padding:12px 14px 12px 44px; position:relative; font-size:15.5px; max-width:72ch}
+.tip::before{content:"!"; position:absolute; left:13px; top:11px; width:22px; height:22px; border-radius:50%; background:var(--tip); color:var(--paper); font-weight:800; font-size:14px; display:grid; place-items:center; font-family:var(--f-display)}
+.tip b{color:var(--tip)}
+.mnemonic{background:var(--ks); border:1px dashed var(--k); border-radius:10px; padding:12px 14px; font-size:15.5px; max-width:72ch}
+.mnemonic b{color:var(--k)}
+
+/* tables */
+.tbl{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--paper)}
+.tbl table{border-collapse:collapse; width:100%; font-size:15px; min-width:460px}
+.tbl th,.tbl td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{background:var(--ks); font-family:var(--f-display); font-weight:700; font-size:14px}
+.tbl td:first-child{font-weight:600}
+.tbl.vs td:first-child{color:var(--muted); font-weight:600; width:24%}
+
+/* code + output */
+.snip{border-radius:12px; overflow:hidden; border:1px solid var(--line); background:var(--code-bg); display:flex; flex-direction:column; min-width:0}
+.snip-bar{display:flex; justify-content:space-between; align-items:center; padding:6px 12px; font-family:var(--f-mono); font-size:12px; color:var(--code-dim); border-bottom:1px solid #ffffff14}
+.snip-bar button{font:inherit; color:var(--code-fg); background:#ffffff14; border:0; border-radius:6px; padding:3px 9px; cursor:pointer}
+.snip-bar button:hover,.snip-bar button:focus-visible{background:#ffffff2a; outline:none}
+.snip pre{margin:0; padding:14px 16px; overflow-x:auto; font-family:var(--f-mono); font-size:13.5px; line-height:1.6; color:var(--code-fg); tab-size:2}
+.snip pre code{background:none; padding:0; white-space:pre; font-size:inherit; color:inherit}
+.out{background:var(--out-bg); color:var(--out-fg); border-top:3px solid var(--k); padding:0}
+.out-label{font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5b6380; padding:8px 14px 0}
+.out-host{display:block; padding:4px 14px 14px; overflow-x:auto}
+.token.tag,.token.selector .token.tag{color:var(--tk-tag)} .token.attr-name{color:var(--tk-attr)} .token.attr-value,.token.string,.token.url{color:var(--tk-str)}
+.token.property{color:var(--tk-prop)} .token.punctuation{color:var(--tk-punc)} .token.comment{color:var(--tk-com); font-style:italic}
+.token.selector{color:var(--tk-sel)} .token.atrule,.token.keyword{color:#ff9ecb} .token.function{color:#7ee0d3} .token.entity{color:#ffcf7f} .token.number,.token.unit{color:#f6b26b} .token.doctype{color:var(--tk-com)}
+
+/* Q&A */
+.qa{display:flex; flex-direction:column; gap:8px}
+.qa details{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:0 14px}
+.qa summary{cursor:pointer; padding:11px 0; font-weight:600; list-style:none; display:flex; gap:10px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"Q"; font-family:var(--f-mono); color:var(--k); font-weight:700}
+.qa details[open] summary{border-bottom:1px dashed var(--line)}
+.qa details>div{padding:10px 0 14px; display:flex; flex-direction:column; gap:8px; font-size:15.5px}
+.qa summary:focus-visible{outline:2px solid var(--k); outline-offset:2px; border-radius:4px}
+
+/* widgets */
+.widget{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:14px}
+.widget .ctrls{display:flex; flex-wrap:wrap; gap:10px 18px; font-size:14.5px; align-items:center}
+.widget .ctrls label{display:flex; gap:8px; align-items:center}
+.widget select,.widget input[type=range]{accent-color:var(--k); font:inherit; font-size:14px}
+.widget select{padding:4px 6px; border-radius:6px; border:1px solid var(--line); background:var(--bg); color:var(--ink)}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.seg button{font:inherit; font-size:14px; border:0; background:var(--bg); color:var(--ink); padding:5px 12px; cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--k); color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--k); outline-offset:-2px}
+.readout{font-family:var(--f-mono); font-size:13px; background:var(--code-bg); color:var(--code-fg); padding:10px 12px; border-radius:8px; white-space:pre-wrap; overflow-x:auto}
+
+/* box model */
+.bm-wrap{display:flex; justify-content:center; overflow-x:auto; padding:6px 0}
+.bm{font-family:var(--f-mono); font-size:12px; text-align:center; position:relative}
+.bm .lay{position:relative; padding:var(--p)}
+.bm .lay>.lbl{position:absolute; top:3px; left:6px; font-size:11px; letter-spacing:.04em; text-transform:uppercase}
+.bm .m{--p:0; background:repeating-linear-gradient(45deg,#f6b26b33 0 6px,#f6b26b1a 6px 12px); border:1px dashed #d08a3c; color:#a8661d}
+.bm .b{background:#2b2f45; color:#ffd479}
+.bm .pd{background:#9be59b55; color:#11845b}
+.bm .c{background:#7fb8ff66; color:#1b3d8f; display:grid; place-items:center; height:70px; font-weight:600}
+[data-theme="dark"] .bm .pd{color:#3fcf93} [data-theme="dark"] .bm .c{color:#cfe0ff}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .bm .pd{color:#3fcf93} :root:not([data-theme="light"]) .bm .c{color:#cfe0ff} :root:not([data-theme="light"]) .bm .m{color:#f6b26b} }
+
+/* flex demo */
+.flexbox{background:var(--bg); border:2px dashed var(--k); border-radius:10px; min-height:190px; padding:8px; display:flex; gap:8px; transition:all .3s}
+.flexbox div{background:var(--k); color:var(--paper); font-family:var(--f-mono); font-weight:600; border-radius:6px; padding:10px 14px; display:grid; place-items:center}
+.flexbox div:nth-child(2){padding:22px 14px} .flexbox div:nth-child(3){padding:6px 22px}
+
+/* position demo */
+.posview{position:relative; height:230px; background:var(--bg); border:2px solid var(--line); border-radius:10px; overflow:hidden; font-size:13px}
+.posview .vplabel{position:absolute; right:8px; bottom:6px; font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+.posview .parent{position:relative; margin:30px 0 0 40px; width:70%; max-width:360px; border:2px dashed var(--muted); border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px}
+.posview .parent.norel{position:static}
+.posview .sib{background:var(--line); border-radius:6px; padding:6px 10px}
+.posview .ghost{position:absolute; border:2px dashed var(--k); border-radius:6px; color:var(--muted); font-size:10px; padding:2px 4px; white-space:nowrap}
+.posview .mover{align-self:flex-start; background:var(--k); color:var(--paper); border-radius:6px; padding:6px 14px; font-weight:700; z-index:2}
+
+/* grid demo */
+.bsframe{border:2px solid var(--line); border-radius:10px; padding:8px; background:var(--bg); transition:width .2s; max-width:100%; margin:0 auto}
+.bsrow{display:flex; flex-wrap:wrap; gap:0}
+.bsrow>div{padding:4px}
+.bsrow>div>span{display:grid; place-items:center; height:54px; background:var(--k); color:var(--paper); border-radius:6px; font-family:var(--f-mono); font-size:12px; font-weight:600; text-align:center; padding:2px}
+.cols12{display:grid; grid-template-columns:repeat(12,1fr); gap:3px}
+.cols12 span{background:var(--ks); border:1px solid var(--k); color:var(--k); border-radius:4px; text-align:center; font-family:var(--f-mono); font-size:11px; padding:4px 0}
+.cols12 .w{grid-column:span var(--s); background:var(--k); color:var(--paper)}
+.bp-pill{display:inline-block; font-family:var(--f-mono); font-size:13px; padding:2px 10px; border-radius:99px; background:var(--k); color:var(--paper)}
+
+/* transforms */
+.tf-row{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+@media (max-width:640px){ .tf-row{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.tf{background:var(--bg); border:1px dashed var(--line); border-radius:10px; height:120px; display:grid; place-items:center; position:relative}
+.tf div{width:56px; height:56px; background:var(--k); border-radius:8px; transition:transform .6s ease}
+.tf:hover div,.tf:focus-within div,.tf.on div{transform:var(--t)}
+.tf code{position:absolute; bottom:6px; font-size:11px}
+
+/* bootstrap mocks */
+.btns{display:flex; flex-wrap:wrap; gap:8px}
+.btns span{font-size:14px; padding:6px 12px; border-radius:6px; color:#fff; font-weight:600}
+.btns.o span{background:transparent!important; border:1.5px solid; color:var(--c)!important}
+
+/* quiz */
+.quiz-top{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between}
+.score{font-family:var(--f-display); font-size:20px; font-weight:700}
+.score small{font-family:var(--f-body); font-weight:400; font-size:14px; color:var(--muted)}
+.btn{font:inherit; font-size:14.5px; font-weight:600; padding:7px 14px; border-radius:8px; border:1px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer}
+.btn:hover,.btn:focus-visible{border-color:var(--k); outline:none}
+.qcard{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:10px}
+.qcard .qh{display:flex; gap:10px; align-items:baseline; font-weight:600}
+.qcard .qh i{font-style:normal; font-family:var(--f-mono); font-size:12px; color:var(--muted); flex:none}
+.qopts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+@media (max-width:600px){ .qopts{grid-template-columns:minmax(0,1fr)} }
+.qopts button{font:inherit; font-size:15px; text-align:left; padding:8px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer}
+.qopts button:hover:not(:disabled),.qopts button:focus-visible{border-color:var(--good); outline:none}
+.qopts button.right{background:var(--good-soft); border-color:var(--good); color:var(--ink)}
+.qopts button.wrong{background:var(--bad-soft); border-color:var(--bad); color:var(--ink)}
+.qopts button:disabled{cursor:default}
+.qwhy{font-size:14.5px; color:var(--muted); border-left:3px solid var(--good); padding-left:10px}
+.qfilter{display:flex; flex-wrap:wrap; gap:6px}
+.qfilter button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+footer{color:var(--muted); font-size:14px; border-top:1px solid var(--line); padding-top:16px}
+</style>
+
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">Web Tech Exam Guide<small>8 lectures · HTML → CSS → Bootstrap 5</small></div>
+    <div class="prog"><span id="progTxt">0 of 8 lectures revised</span><div class="bar"><i id="progBar"></i></div></div>
+    <nav class="nav" aria-label="Lectures">
+      <div class="grp">HTML</div>
+      <a href="#l1" data-k="html" data-l="l1"><span class="dot"></span>L1 · HTML Basics</a>
+      <a href="#l2" data-k="html" data-l="l2"><span class="dot"></span>L2 · Advanced HTML5</a>
+      <a href="#l3" data-k="html" data-l="l3"><span class="dot"></span>L3 · Tables</a>
+      <a href="#l4" data-k="html" data-l="l4"><span class="dot"></span>L4 · Forms</a>
+      <div class="grp">CSS</div>
+      <a href="#l5" data-k="css" data-l="l5"><span class="dot"></span>L5 · CSS Intro</a>
+      <a href="#l5b" data-k="css" data-l="l5b"><span class="dot"></span>L5 · CSS3 Features</a>
+      <a href="#l6" data-k="css" data-l="l6"><span class="dot"></span>L6 · CSS3 Notes</a>
+      <div class="grp">Framework</div>
+      <a href="#l7" data-k="bs" data-l="l7"><span class="dot"></span>L7 · Bootstrap 5</a>
+      <div class="grp">Practice</div>
+      <a href="#vs" data-k="x"><span class="dot"></span>Differences</a>
+      <a href="#quiz" data-k="x"><span class="dot"></span>Quiz</a>
+    </nav>
+  </aside>
+
+  <main>
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="eyebrow">Revision guide built from your lecture slides</div>
+    <h1>Learn <em>HTML</em>, <b>CSS3</b> &amp; <u>Bootstrap 5</u> for the exam</h1>
+    <p class="lead">Every topic from Lectures 1–7, explained simply. The code blocks show what the browser displays, the widgets let you play with layout, and each lecture ends with likely exam questions and their answers.</p>
+    <div class="map">
+      <a href="#l1" style="--k:var(--html)"><b>L1 · HTML Basics</b><span>Tags, links, formatting, lists</span></a>
+      <a href="#l2" style="--k:var(--html)"><b>L2 · HTML5</b><span>Image maps, new tags, audio/video</span></a>
+      <a href="#l3" style="--k:var(--html)"><b>L3 · Tables</b><span>tr, td, th, rowspan, colspan</span></a>
+      <a href="#l4" style="--k:var(--html)"><b>L4 · Forms</b><span>Inputs, GET vs POST</span></a>
+      <a href="#l5" style="--k:var(--css)"><b>L5 · CSS Intro</b><span>3 ways to add CSS, selectors</span></a>
+      <a href="#l5b" style="--k:var(--css)"><b>L5 · CSS3</b><span>Borders, shadows, transforms</span></a>
+      <a href="#l6" style="--k:var(--css)"><b>L6 · CSS3 Notes</b><span>Box model, position, flexbox, RWD</span></a>
+      <a href="#l7" style="--k:var(--bs)"><b>L7 · Bootstrap 5</b><span>Grid, buttons, cards, forms</span></a>
+    </div>
+    <div class="howto"><span>Read a lecture</span><span>Open the Q&amp;A and answer out loud</span><span>Tick “I've revised this”</span><span>Finish with the quiz</span></div>
+  </header>
+
+  <!-- ============ L1 ============ -->
+  <section class="lec" id="l1">
+    <div class="lec-head">
+      <span class="tag">Lecture 1 · HTML</span>
+      <h2>HTML Basics</h2>
+      <p>HTML (HyperText Markup Language) describes the content of a web page using tags. Each page on a website is one HTML file.</p>
+      <label><input type="checkbox" data-done="l1"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.1</span>HTML files and tags</h3>
+      <div class="grid2">
+        <div class="card k"><h4>HTML files</h4><ul><li>Each web page = one HTML file</li><li>Written in plain <b>ASCII text</b> (Notepad works)</li><li>Extension: <code>.html</code> or <code>.htm</code></li></ul></div>
+        <div class="card k"><h4>Tags</h4><ul><li>Usually come in two parts: <b>opening</b> <code>&lt;html&gt;</code> and <b>closing</b> <code>&lt;/html&gt;</code></li><li>The pair marks off text and says how to format it</li><li>Most tags support <b>attributes</b></li></ul></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Tag with attributes — the general form">
+<tag attr1="value1" attr2="value2"> item to be formatted </tag>
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>DTD (Document Type Definition)</h4><p>A collection of rules written in <b>SGML</b> (Standard Generalized Markup Language). HTML is defined by its DTDs: all details of tags, entities and document structure live there.</p></div>
+        <div class="card k"><h4>Element</h4><p>A part of the document's structure, like a title, a paragraph or a list. It includes the <b>opening tag, the closing tag and the content</b> in between.</p></div>
+      </div>
+      <div class="tip"><b>Remember:</b> how a page looks also depends on the <b>browser settings</b>, and on the user's system and monitor.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.2</span>Basic page structure</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Skeleton of every HTML page">
+<html>
+  <head>
+    <title>My First Page</title>
+  </head>
+  <body>
+    <h1>Main heading</h1>
+    <h3>Smaller heading</h3>
+    <p>A paragraph of text.</p>
+  </body>
+</html>
+      </script>
+      <div class="grid3">
+        <div class="card"><h4>&lt;head&gt;</h4><p>Information about the page: title, styles, meta. Not shown in the page body.</p></div>
+        <div class="card"><h4>&lt;title&gt;</h4><p>Text shown on the browser tab.</p></div>
+        <div class="card"><h4>&lt;body&gt;</h4><p>Everything the visitor sees: headings <code>h1</code>–<code>h6</code>, paragraphs <code>p</code>, images, links.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.3</span>Hyperlinks: &lt;a href&gt;</h3>
+      <p><code>&lt;a&gt;</code> means <span class="kw">anchor</span>. <code>href</code> means <span class="kw">hypertext reference</span>: it holds the URL you link to. By default a link is <b>blue and underlined</b>.</p>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Three kinds of links">
+<a href="http://www.depaul.edu">Visit the DePaul site.</a><br>
+<a href="mailto:yourname@hotmail.com">Email me</a><br>
+<a href="file2.htm">Go to file 2</a>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Path type</th><th>Where is the file?</th><th>href value</th></tr>
+        <tr><td rowspan="3">Relative</td><td>Same folder</td><td><code>href="file2.htm"</code></td></tr>
+        <tr><td>In a child folder (subfolder)</td><td><code>href="foldername/file2.htm"</code></td></tr>
+        <tr><td>In the parent folder (up one level)</td><td><code>href="../file2.htm"</code></td></tr>
+        <tr><td>Absolute</td><td>Anywhere: include the entire URL</td><td><code>href="http://condor.depaul.edu/~gandrus/index.html"</code></td></tr>
+      </table></div>
+      <div class="mnemonic"><b>Memory trick:</b> <code>../</code> = “go <b>up</b> one floor”. <code>folder/</code> = “go <b>down</b> into a room”.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.4</span>Text formatting</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Formatting tags">
+<b>Boldface</b>, <i>Italic</i>, <u>Underlined</u><br>
+<strike>Crossed out word</strike><br>
+H<sub>2</sub>O uses subscript, x<sup>2</sup> uses superscript<br>
+<font color="#0000FF" size="5" face="Arial">Font tag text</font>
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>&lt;font&gt; tag (old way)</h4><p>Three attributes: <code>color</code>, <code>size</code>, <code>face</code>. The size is relative to the text before it.</p></div>
+        <div class="card k"><h4>CSS (preferred way)</h4><p>Define a style rule once, then reuse it with a class.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Same result with CSS instead of <font>">
+<style>
+  span.txt1 { color: green; font-size: 12pt; font-family: verdana; }
+</style>
+<span class="txt1">This text is different</span>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.5</span>Special characters and alignment</h3>
+      <div class="tbl"><table>
+        <tr><th>Write this</th><th>Browser shows</th><th>Why you need it</th></tr>
+        <tr><td><code>&amp;lt;</code></td><td>&lt;</td><td>A plain &lt; would start a tag</td></tr>
+        <tr><td><code>&amp;gt;</code></td><td>&gt;</td><td>Greater-than sign</td></tr>
+        <tr><td><code>&amp;amp;</code></td><td>&amp;</td><td>Ampersand</td></tr>
+        <tr><td><code>&amp;quot;</code></td><td>"</td><td>Double quote</td></tr>
+        <tr><td><code>&amp;nbsp;</code></td><td>(space)</td><td>Non-breaking space; browsers collapse normal extra spaces</td></tr>
+        <tr><td><code>&amp;copy;</code></td><td>©</td><td>Copyright sign</td></tr>
+        <tr><td><code>&amp;reg;</code></td><td>®</td><td>Registered sign</td></tr>
+      </table></div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Paragraph alignment: old attribute vs better CSS">
+<p align="center">Centered with the align attribute</p>
+<p style="text-align: right">Right-aligned with CSS (better)</p>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">1.6</span>Lists</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Unordered list &lt;ul&gt;</h4><p>Bullet list. Each item uses <code>&lt;li&gt;</code>. <code>type</code> = <code>disc</code> (default), <code>circle</code>, <code>square</code>.</p></div>
+        <div class="card k"><h4>Ordered list &lt;ol&gt;</h4><p>Numbered list. <code>type</code> = <code>1</code>, <code>A</code>, <code>a</code>, <code>I</code>, <code>i</code>. <code>start</code> changes where numbering begins.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="ul, ol, type and start">
+<ul type="square">
+  <li>Third item</li>
+  <li>Fourth item</li>
+</ul>
+<ol type="I" start="3">
+  <li>Starts from III instead of I</li>
+  <li>Next is IV</li>
+</ol>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>&lt;ol type=...&gt;</th><th>Numbering</th></tr>
+        <tr><td><code>type="1"</code></td><td>1, 2, 3 (default)</td></tr>
+        <tr><td><code>type="A"</code></td><td>Uppercase Latin letters: A, B, C</td></tr>
+        <tr><td><code>type="a"</code></td><td>Lowercase Latin letters: a, b, c</td></tr>
+        <tr><td><code>type="I"</code></td><td>Uppercase Roman numerals: I, II, III</td></tr>
+        <tr><td><code>type="i"</code></td><td>Lowercase Roman numerals: i, ii, iii</td></tr>
+      </table></div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Nested list (the to-do list example)">
+<h3>To do list</h3>
+<ol type="A">
+  <li>Pick up dry cleaning</li>
+  <li>Clean the house
+    <ul>
+      <li>Sweep the floors</li>
+      <li>Take out garbage</li>
+    </ul>
+  </li>
+  <li>Stop by post office
+    <ul>
+      <li>Get stamps
+        <ul><li>Overseas airmail</li><li>Domestic</li></ul>
+      </li>
+      <li>Mail package</li>
+    </ul>
+  </li>
+</ol>
+      </script>
+      <div class="tip"><b>Exam trick:</b> a nested list goes <b>inside</b> the <code>&lt;li&gt;</code>, before its closing <code>&lt;/li&gt;</code>.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>What is HTML? What extension do HTML files use?</summary><div><p>HTML (HyperText Markup Language) is the markup language that describes the content of a web page using tags. HTML files are plain ASCII text with the extension <code>.html</code> or <code>.htm</code>.</p></div></details>
+        <details><summary>Define DTD and Element.</summary><div><p><b>DTD:</b> Document Type Definition, a collection of rules written in SGML. HTML is defined by its DTDs, which describe all tags, entities and document structure.</p><p><b>Element:</b> a component of a document's structure (title, paragraph, list) made of the opening tag, the content and the closing tag.</p></div></details>
+        <details><summary>What do &lt;a&gt; and href stand for? Write a link to a file in the parent folder.</summary><div><p><code>&lt;a&gt;</code> = anchor, <code>href</code> = hypertext reference. Parent-folder link: <code>&lt;a href="../file2.htm"&gt;File 2&lt;/a&gt;</code></p></div></details>
+        <details><summary>Difference between relative and absolute links?</summary><div><p>A <b>relative</b> link gives the path from the current file (<code>file.html</code>, <code>sub/file.html</code>, <code>../file.html</code>). An <b>absolute</b> link includes the entire URL (<code>http://site.com/page.html</code>).</p></div></details>
+        <details><summary>Why is CSS preferred over the &lt;font&gt; tag?</summary><div><p>With CSS you define the style once and reuse it everywhere with a class, so changes happen in one place. The font tag must be repeated on every piece of text.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L2 ============ -->
+  <section class="lec" id="l2">
+    <div class="lec-head">
+      <span class="tag">Lecture 2 · HTML</span>
+      <h2>Advanced HTML &amp; HTML5</h2>
+      <p>Clickable image maps, the new HTML5 elements and attributes, plug-ins, and built-in audio/video.</p>
+      <label><input type="checkbox" data-done="l2"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">2.1</span>Image maps</h3>
+      <p>An image map makes <b>clickable areas</b> on one image. Three steps:</p>
+      <div class="grid3">
+        <div class="card k"><h4>1 · &lt;img usemap&gt;</h4><p>Add <code>usemap="#workmap"</code> to the image.</p></div>
+        <div class="card k"><h4>2 · &lt;map name&gt;</h4><p><code>name="workmap"</code> must match the usemap value (without #).</p></div>
+        <div class="card k"><h4>3 · &lt;area&gt;</h4><p>Each clickable area: <code>shape</code>, <code>coords</code>, <code>href</code>, <code>alt</code>.</p></div>
+      </div>
+      <div class="widget">
+        <svg viewBox="0 0 400 379" style="max-width:420px; width:100%; margin:0 auto; display:block" role="img" aria-label="Image map diagram showing a rectangle and a circle area">
+          <rect x="0" y="0" width="400" height="379" rx="10" fill="var(--bg)" stroke="var(--line)"/>
+          <rect x="34" y="44" width="236" height="306" fill="var(--html-soft)" stroke="var(--html)" stroke-width="2.5" stroke-dasharray="6 4"/>
+          <text x="152" y="190" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="15" font-weight="600" fill="var(--html)">Computer</text>
+          <text x="152" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--muted)">rect 34,44,270,350</text>
+          <circle cx="34" cy="44" r="5" fill="var(--html)"/><text x="42" y="36" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink)">(34,44) top-left</text>
+          <circle cx="270" cy="350" r="5" fill="var(--html)"/><text x="160" y="370" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink)">bottom-right (270,350)</text>
+          <rect x="290" y="172" width="43" height="78" fill="var(--css-soft)" stroke="var(--css)" stroke-width="2.5" stroke-dasharray="6 4"/>
+          <text x="311" y="164" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--css)">Phone</text>
+          <circle cx="337" cy="300" r="44" fill="var(--bs-soft)" stroke="var(--bs)" stroke-width="2.5" stroke-dasharray="6 4"/>
+          <circle cx="337" cy="300" r="4" fill="var(--bs)"/>
+          <line x1="337" y1="300" x2="381" y2="300" stroke="var(--bs)" stroke-width="2"/>
+          <text x="337" y="290" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--bs)">Coffee</text>
+          <text x="359" y="316" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--bs)">r=44</text>
+        </svg>
+        <div class="readout">rect   → coords = top-left x,y , bottom-right x,y
+circle → coords = center x,y , radius</div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Full image map code (from the slide)">
+<img src="workplace.jpg" alt="Workplace" usemap="#workmap" width="400" height="379">
+
+<map name="workmap">
+  <area shape="rect"   coords="34,44,270,350"  alt="Computer" href="computer.htm">
+  <area shape="rect"   coords="290,172,333,250" alt="Phone"    href="phone.htm">
+  <area shape="circle" coords="337,300,44"      alt="Cup of coffee" href="coffee.htm">
+</map>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">2.2</span>HTML5 new features (big picture)</h3>
+      <div class="grid2">
+        <div class="card"><h4>New elements</h4><p><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code> …</p></div>
+        <div class="card"><h4>Forms 2.0</h4><p>New attributes for <code>&lt;input&gt;</code>: autofocus, required, placeholder.</p></div>
+        <div class="card"><h4>WebSockets</h4><p>Two-way live connection; libraries like Socket.io make it easier.</p></div>
+        <div class="card"><h4>Server-Sent Events (SSE)</h4><p>Server pushes updates; widely supported but more limited than WebSockets.</p></div>
+        <div class="card"><h4>Canvas</h4><p>A 2D drawing surface you program with JavaScript (e.g. 2D games).</p></div>
+        <div class="card"><h4>Audio &amp; Video</h4><p>Embed media without a plug-in.</p></div>
+        <div class="card"><h4>Geolocation</h4><p>Visitors can choose to share their physical location.</p></div>
+        <div class="card"><h4>Drag &amp; Drop</h4><p>Any element can be draggable; often replaced by libraries like Sortable.js.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">2.3</span>New input attributes</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="autofocus, required, placeholder">
+<form>
+  Search: <input type="text" name="search" required><br><br>
+  Enter email: <input type="email" name="newinput" placeholder="email@example.com">
+  <input type="submit" value="submit">
+</form>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Attribute</th><th>What it does</th></tr>
+        <tr><td><code>autofocus</code></td><td>Cursor goes into this field automatically when the page loads.</td></tr>
+        <tr><td><code>required</code></td><td>Form will not submit while the field is empty. No JavaScript needed for this client-side validation.</td></tr>
+        <tr><td><code>placeholder</code></td><td>Grey hint text inside <code>&lt;input&gt;</code> / <code>&lt;textarea&gt;</code> showing what to type.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">2.4</span>New HTML5 elements</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="datalist — autocomplete drop-down (try typing in the box)">
+<input type="text" list="browsers" name="browser">
+<datalist id="browsers">
+  <option value="Internet Explorer">
+  <option value="Firefox">
+  <option value="Chrome">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>
+      </script>
+      <div class="tip"><b>Key point:</b> the input's <code>list</code> attribute must equal the datalist's <code>id</code>.</div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="details + summary — click to open/close">
+<details>
+  <summary>Copyright 1999-2011.</summary>
+  <p>- by Refsnes Data. All Rights Reserved.</p>
+</details>
+      </script>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="mark and progress">
+<p>Do not forget to buy <mark>milk</mark> today.</p>
+<progress value="22" max="100"></progress>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Element</th><th>Meaning</th></tr>
+        <tr><td><code>&lt;article&gt;</code></td><td>Independent, self-contained content that makes sense on its own (a blog post, a news story).</td></tr>
+        <tr><td><code>&lt;datalist&gt;</code></td><td>List of pre-defined options for an input: an “autocomplete” feature.</td></tr>
+        <tr><td><code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code></td><td>Extra details the user can show or hide. <code>summary</code> is the visible heading.</td></tr>
+        <tr><td><code>&lt;figure&gt;</code></td><td>Self-contained content like illustrations, diagrams, photos, code listings.</td></tr>
+        <tr><td><code>&lt;figcaption&gt;</code></td><td>Caption for a <code>&lt;figure&gt;</code>.</td></tr>
+        <tr><td><code>&lt;mark&gt;</code></td><td>Highlighted (marked) text.</td></tr>
+        <tr><td><code>&lt;progress&gt;</code></td><td>Progress of a task, used with JavaScript. Attributes: <code>value</code>, <code>max</code>.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">2.5</span>Plug-ins, video and audio</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Plug-ins</h4><p>Helper programs that <b>extend the functionality of a browser</b> (PDF readers, Flash, maps, virus scan, bank ID). Added with <code>&lt;object&gt;</code> or <code>&lt;embed&gt;</code>.</p></div>
+        <div class="card k"><h4>&lt;object&gt; vs &lt;embed&gt;</h4><p><code>&lt;object&gt;</code>: defines an embedded object, supported by all browsers. <code>&lt;embed&gt;</code>: embeds external applications, usually audio/video.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="HTML5 video and audio">
+<video width="320" height="240" controls="controls">
+  <source src="movie.mp4" type="video/mp4" />
+</video>
+
+<audio controls="controls">
+  <source src="song.mp3" type="audio/mpeg" />
+  Some browser does not support the audio element.
+</audio>
+      </script>
+      <div class="tip"><b>Why give video a width and height?</b> The browser reserves the space while the page loads. Without them the layout jumps while the video loads. <code>controls</code> adds play, pause and volume.</div>
+      <div class="grid2">
+        <div class="card"><h4>Drag and Drop</h4><p>“Grab” an object and drag it to another place. In HTML5 it is part of the standard and <b>any element can be draggable</b>.</p></div>
+        <div class="card"><h4>Geolocation</h4><p>Gets the user's position with <code>getCurrentPosition()</code>. Because of privacy, it only works <b>after the user approves</b>.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>What is an image map? Write the code for a circular clickable area.</summary><div><p>An image with several clickable areas, each linking somewhere. <code>&lt;area shape="circle" coords="337,300,44" href="coffee.htm" alt="Coffee"&gt;</code> — center x, center y, radius.</p></div></details>
+        <details><summary>List any five new features of HTML5.</summary><div><p>New semantic elements (header, footer, section, article), Forms 2.0 attributes, Canvas, Audio &amp; Video, Geolocation, Drag &amp; Drop, WebSockets, Server-Sent Events.</p></div></details>
+        <details><summary>Difference between placeholder and required?</summary><div><p><code>placeholder</code> only shows a hint inside the box. <code>required</code> stops the form from being submitted while the field is empty.</p></div></details>
+        <details><summary>What is a plug-in? Which tags add one?</summary><div><p>A helper program that extends the standard functionality of a browser. Added with <code>&lt;object&gt;</code> or <code>&lt;embed&gt;</code>.</p></div></details>
+        <details><summary>Why is Geolocation not available automatically?</summary><div><p>It can compromise user privacy, so the browser shows the position only if the user approves.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L3 ============ -->
+  <section class="lec" id="l3">
+    <div class="lec-head">
+      <span class="tag">Lecture 3 · HTML</span>
+      <h2>Tables</h2>
+      <p>A table is a grid of rows and columns, like a spreadsheet. Know these five tags and two attributes and you can write any table.</p>
+      <label><input type="checkbox" data-done="l3"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">3.1</span>The building blocks</h3>
+      <div class="grid3">
+        <div class="card k"><h4>&lt;table&gt;</h4><p>Defines the table.</p></div>
+        <div class="card k"><h4>&lt;tr&gt;</h4><p><b>T</b>able <b>R</b>ow.</p></div>
+        <div class="card k"><h4>&lt;td&gt;</h4><p><b>T</b>able <b>D</b>ata (a normal cell).</p></div>
+        <div class="card k"><h4>&lt;th&gt;</h4><p><b>T</b>able <b>H</b>eading cell: bold and centered.</p></div>
+        <div class="card k"><h4>&lt;caption&gt;</h4><p>Title shown above the table.</p></div>
+        <div class="card k"><h4>&lt;thead&gt; &lt;tbody&gt; &lt;tfoot&gt;</h4><p>Group header, body and footer rows.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="A simple table">
+<table border="1" style="width:100%">
+  <tr>
+    <td>ABC</td> <td>DEF</td> <td>50</td>
+  </tr>
+  <tr>
+    <td>GHI</td> <td>JKL</td> <td>94</td>
+  </tr>
+</table>
+      </script>
+      <div class="mnemonic"><b>Order to remember:</b> table → <b>row</b> → <b>cell</b>. A <code>&lt;td&gt;</code> always lives inside a <code>&lt;tr&gt;</code>; there is no “column” tag.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">3.2</span>colspan and rowspan (merge cells)</h3>
+      <p>Same as “merge cells” in Excel. Both are attributes of <code>&lt;td&gt;</code> and <code>&lt;th&gt;</code>.</p>
+      <div class="grid2">
+        <script type="text/plain" class="snip" data-lang="html" data-live data-title="colspan = spread across columns →">
+<table border="1" style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th colspan="2">Telephone</th>
+  </tr>
+  <tr>
+    <td>A Person</td>
+    <td>555 77 854</td>
+    <td>555 77 855</td>
+  </tr>
+</table>
+        </script>
+        <script type="text/plain" class="snip" data-lang="html" data-live data-title="rowspan = spread down rows ↓">
+<table border="1" style="width:100%">
+  <tr>
+    <th>Name:</th>
+    <td>A Person</td>
+  </tr>
+  <tr>
+    <th rowspan="2">Telephone:</th>
+    <td>555 77 854</td>
+  </tr>
+  <tr>
+    <td>555 77 855</td>
+  </tr>
+</table>
+        </script>
+      </div>
+      <div class="tip"><b>Common mistake:</b> when a cell has <code>rowspan="2"</code>, the <b>next row has one fewer</b> <code>&lt;td&gt;</code>, because the merged cell already fills that spot.</div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Both together (from the slide)">
+<table border="1">
+  <tr><th>Column 1</th><th>Column 2</th><th>Column 3</th></tr>
+  <tr>
+    <td rowspan="2">Row 1 Cell 1</td>
+    <td>Row 1 Cell 2</td><td>Row 1 Cell 3</td>
+  </tr>
+  <tr>
+    <td>Row 2 Cell 2</td><td>Row 2 Cell 3</td>
+  </tr>
+  <tr><td colspan="3">Row 3 Cell 1</td></tr>
+</table>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">3.3</span>caption, thead, tbody, tfoot</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Structured table">
+<table border="1" width="100%">
+  <caption>MY Table 1</caption>
+  <thead>
+    <tr><td colspan="4">This is the head of the table</td></tr>
+  </thead>
+  <tfoot>
+    <tr><td colspan="4">This is the foot of the table</td></tr>
+  </tfoot>
+  <tbody>
+    <tr><td>Cell 1</td><td>Cell 2</td><td>Cell 3</td><td>Cell 4</td></tr>
+  </tbody>
+</table>
+      </script>
+      <div class="tip"><b>Notice:</b> <code>&lt;tfoot&gt;</code> is written <b>before</b> <code>&lt;tbody&gt;</code> in the code, but the browser still shows it at the bottom.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>Difference between &lt;th&gt; and &lt;td&gt;?</summary><div><p><code>&lt;th&gt;</code> is a header cell (bold, centered by default). <code>&lt;td&gt;</code> is a normal data cell.</p></div></details>
+        <details><summary>What are rowspan and colspan?</summary><div><p>Attributes of <code>td</code>/<code>th</code> that make a cell span several rows (<code>rowspan=x</code>) or several columns (<code>colspan=x</code>). They work like “merge cells” in Excel.</p></div></details>
+        <details><summary>Write a table: one heading cell spanning 2 columns, then a row with 2 cells.</summary><div><p><code>&lt;table border="1"&gt;&lt;tr&gt;&lt;th colspan="2"&gt;Marks&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Ali&lt;/td&gt;&lt;td&gt;90&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></p></div></details>
+        <details><summary>What is the use of &lt;caption&gt;, &lt;thead&gt; and &lt;tfoot&gt;?</summary><div><p><code>caption</code> gives the table a title. <code>thead</code>, <code>tbody</code> and <code>tfoot</code> group the header, body and footer rows so they can be styled and handled separately.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L4 ============ -->
+  <section class="lec" id="l4">
+    <div class="lec-head">
+      <span class="tag">Lecture 4 · HTML</span>
+      <h2>HTML Forms</h2>
+      <p>Forms collect data from visitors (name, email, password) and send it to a back-end program such as CGI, ASP or PHP, which processes it.</p>
+      <label><input type="checkbox" data-done="l4"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">4.1</span>The &lt;form&gt; tag and its attributes</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Syntax">
+<form action="Script URL" method="GET|POST">
+  form elements like input, textarea etc.
+</form>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Attribute</th><th>Meaning</th></tr>
+        <tr><td><code>action</code></td><td>The back-end script that will process the data.</td></tr>
+        <tr><td><code>method</code></td><td>How data is sent: <b>GET</b> or <b>POST</b>.</td></tr>
+        <tr><td><code>target</code></td><td>Where to show the result: <code>_blank</code>, <code>_self</code>, <code>_parent</code>, …</td></tr>
+        <tr><td><code>enctype</code></td><td>How data is encoded. <code>application/x-www-form-urlencoded</code> = standard (default). <code>multipart/form-data</code> = for uploading files (images, Word files).</td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">4.2</span>GET vs POST</h3>
+      <div class="grid2">
+        <div class="card" style="border-top:4px solid var(--tip)"><h4>GET</h4><ul><li>Data goes <b>in the URL</b>, visible in the address bar</li><li>Can be <b>bookmarked and cached</b></li><li><b>Limited size</b> (about 2048 characters)</li><li>For small, non-sensitive data like search</li></ul>
+          <div class="readout">/submit?username=ali</div></div>
+        <div class="card" style="border-top:4px solid var(--good)"><h4>POST</h4><ul><li>Data goes <b>in the request body</b>, not visible in URL</li><li><b>More secure</b>: use for passwords</li><li><b>No strict size limit</b></li><li>For large or sensitive data</li></ul>
+          <div class="readout">/submit   (data hidden in body)</div></div>
+      </div>
+      <div class="mnemonic"><b>Memory trick:</b> GET is like a <b>postcard</b> (anyone can read it). POST is like a <b>sealed envelope</b>.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">4.3</span>All form controls</h3>
+      <p>Most controls use <code>&lt;input&gt;</code> with a different <code>type</code>. Only two have their own tags: <code>&lt;textarea&gt;</code> and <code>&lt;select&gt;</code>.</p>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Every control from the lecture in one form">
+<form action="/submit" method="POST">
+  First name: <input type="text" name="first_name" size="20" maxlength="30"><br>
+  Password: <input type="password" name="password"><br>
+
+  Description:<br>
+  <textarea rows="3" cols="30" name="description">Enter description here...</textarea><br>
+
+  <input type="checkbox" name="maths" value="on" checked> Maths
+  <input type="checkbox" name="physics" value="on"> Physics<br>
+
+  <input type="radio" name="subject" value="maths"> Maths
+  <input type="radio" name="subject" value="physics"> Physics<br>
+
+  <select name="dropdown">
+    <option value="Maths" selected>Maths</option>
+    <option value="Physics">Physics</option>
+  </select><br>
+
+  Select file: <input type="file" name="fileupload" accept="image/*"><br>
+  <input type="hidden" name="pagename" value="10">
+
+  <input type="submit" value="Submit">
+  <input type="reset" value="Reset">
+  <input type="button" value="OK">
+</form>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Control</th><th>Code</th><th>Use it when…</th></tr>
+        <tr><td>Single-line text</td><td><code>type="text"</code></td><td>One line of input: name, search box</td></tr>
+        <tr><td>Password</td><td><code>type="password"</code></td><td>Same as text but characters are <b>masked</b></td></tr>
+        <tr><td>Multi-line text</td><td><code>&lt;textarea rows cols&gt;</code></td><td>Longer details than one sentence</td></tr>
+        <tr><td>Checkbox</td><td><code>type="checkbox"</code></td><td><b>More than one</b> option can be selected</td></tr>
+        <tr><td>Radio button</td><td><code>type="radio"</code></td><td><b>Only one</b> option out of many (same <code>name</code>)</td></tr>
+        <tr><td>Select box</td><td><code>&lt;select&gt;&lt;option&gt;</code></td><td>Drop-down list of options</td></tr>
+        <tr><td>File upload</td><td><code>type="file"</code></td><td>User uploads a file (attribute <code>accept</code>)</td></tr>
+        <tr><td>Hidden</td><td><code>type="hidden"</code></td><td>Data hidden in the page, sent to server, not visible</td></tr>
+        <tr><td>Buttons</td><td><code>submit</code> / <code>reset</code> / <code>button</code> / <code>image</code></td><td>Submit form / reset to initial values / run a script / image as button</td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">4.4</span>Attributes per control</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Text input</h4><ul><li><code>type</code> — text</li><li><code>name</code> — sent to the server to identify the value</li><li><code>value</code> — initial value</li><li><code>size</code> — width in characters</li><li><code>maxlength</code> — max characters allowed</li></ul></div>
+        <div class="card k"><h4>textarea</h4><ul><li><code>name</code></li><li><code>rows</code> — number of rows</li><li><code>cols</code> — number of columns</li></ul></div>
+        <div class="card k"><h4>Checkbox &amp; radio</h4><ul><li><code>type</code>, <code>name</code></li><li><code>value</code> — sent if selected</li><li><code>checked</code> — selected by default</li></ul></div>
+        <div class="card k"><h4>select / option</h4><ul><li>select: <code>name</code>, <code>size</code> (scrolling list), <code>multiple</code> (pick many)</li><li>option: <code>value</code>, <code>selected</code> (default), <code>label</code></li></ul></div>
+        <div class="card k"><h4>File upload</h4><ul><li><code>name</code></li><li><code>accept</code> — file types: <code>.jpg,.png</code>, <code>image/*</code>, <code>audio/*</code>, <code>video/*</code></li></ul></div>
+        <div class="card k"><h4>Button types</h4><ul><li><code>submit</code> — submits the form</li><li><code>reset</code> — clears to initial values</li><li><code>button</code> — runs client-side script</li><li><code>image</code> — image as the button</li></ul></div>
+      </div>
+      <div class="tip"><b>Radio trap:</b> radio buttons only work as “pick one” when they share the <b>same name</b>. Checkboxes each get their own name.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>Differentiate between GET and POST (4 points).</summary><div><p>GET: data in URL / visible / can be bookmarked and cached / limited (~2048 chars) / not for sensitive data. POST: data in request body / hidden / not bookmarked / no strict limit / suitable for passwords.</p></div></details>
+        <details><summary>Checkbox vs radio button?</summary><div><p>Checkbox: more than one option can be selected. Radio: only one option out of a group (same name) can be selected.</p></div></details>
+        <details><summary>Which enctype is used for file upload?</summary><div><p><code>multipart/form-data</code>. The default is <code>application/x-www-form-urlencoded</code>.</p></div></details>
+        <details><summary>What is a hidden control and why is it used?</summary><div><p><code>&lt;input type="hidden"&gt;</code> keeps data inside the page (e.g. page number) that is sent to the server but never shown to the user.</p></div></details>
+        <details><summary>Write a form with username, password and a submit button using POST.</summary><div><p><code>&lt;form action="/login" method="POST"&gt; Username: &lt;input type="text" name="user"&gt; Password: &lt;input type="password" name="pass"&gt; &lt;input type="submit" value="Login"&gt; &lt;/form&gt;</code></p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L5 intro ============ -->
+  <section class="lec css" id="l5">
+    <div class="lec-head">
+      <span class="tag">Lecture 5 · CSS</span>
+      <h2>CSS Introduction</h2>
+      <p>CSS (Cascading Style Sheets) controls how a page looks. HTML gives the content; CSS gives the style.</p>
+      <label><input type="checkbox" data-done="l5"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.1</span>What and why</h3>
+      <div class="grid2">
+        <div class="card k"><h4>History</h4><ul><li>Created by <b>Håkon Lie</b> (MIT) in <b>1994</b></li><li>Became the <b>W3C standard</b> for visual presentation of web pages</li><li>Works by letting you specify <b>rules</b></li></ul></div>
+        <div class="card k"><h4>Benefits</h4><ul><li>Saves time, easy to change</li><li>Keeps consistency across pages</li><li>More control over layout</li><li>Works with JavaScript</li><li>Common format for all pages</li></ul></div>
+      </div>
+      <div class="tip"><b>Why CSS was needed:</b> HTML was meant to <b>describe content</b>, not format it. When <code>&lt;font&gt;</code> and color attributes were added in HTML 3.2, large sites became a nightmare to maintain. With one external .css file you can change the look of an entire website.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.2</span>Three ways to add CSS</h3>
+      <div class="tbl"><table>
+        <tr><th>Type</th><th>Where it goes</th><th>Use it when…</th><th>Example</th></tr>
+        <tr><td>Inline</td><td><code>style</code> attribute in the tag</td><td>Formatting just one element</td><td><code>&lt;h1 style="color:red"&gt;</code></td></tr>
+        <tr><td>Internal / Embedded</td><td><code>&lt;style&gt;</code> inside <code>&lt;head&gt;</code></td><td>Styling all instances of an element in <b>one page</b></td><td><code>&lt;style&gt;h1{color:red}&lt;/style&gt;</code></td></tr>
+        <tr><td>External</td><td>Separate <code>.css</code> file, linked with <code>&lt;link&gt;</code></td><td>Styling an <b>entire website</b></td><td><code>&lt;link rel="stylesheet" href="mystyle.css"&gt;</code></td></tr>
+      </table></div>
+      <div class="grid2">
+        <script type="text/plain" class="snip" data-lang="css" data-title="mystyle.css (no <style> tags inside!)">
+h1 { color: red; font-family: calibri; }
+p  { font-size: 14px; }
+        </script>
+        <script type="text/plain" class="snip" data-lang="html" data-title="Link it inside <head>">
+<head>
+  <link href="mystyle.css" rel="stylesheet" type="text/css">
+</head>
+        </script>
+      </div>
+      <div class="widget">
+        <div style="font-family:var(--f-display); font-weight:700">Cascading order: who wins when rules clash?</div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div style="display:flex; gap:10px; align-items:center"><span class="bp-pill" style="min-width:34px; text-align:center">1</span><div style="flex:1; background:var(--k); color:var(--paper); padding:8px 12px; border-radius:8px; font-weight:600">Inline style — highest priority</div></div>
+          <div style="display:flex; gap:10px; align-items:center"><span class="bp-pill" style="min-width:34px; text-align:center; opacity:.75">2</span><div style="flex:1; background:var(--ks); border:1px solid var(--k); padding:8px 12px; border-radius:8px; width:85%">External and internal style sheets (the one written later wins)</div></div>
+          <div style="display:flex; gap:10px; align-items:center"><span class="bp-pill" style="min-width:34px; text-align:center; opacity:.5">3</span><div style="flex:1; background:var(--bg); border:1px dashed var(--line); padding:8px 12px; border-radius:8px">Browser default — lowest</div></div>
+        </div>
+      </div>
+      <div class="tip"><b>Best practice from the slides:</b> put styles in external sheets wherever possible; use a global.css for the whole site, refine with section.css, and avoid styles inside tags.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.3</span>Anatomy of a CSS rule</h3>
+      <div class="widget">
+        <svg viewBox="0 0 560 150" style="width:100%; max-width:560px; margin:0 auto; display:block" role="img" aria-label="CSS rule diagram: selector h1, declarations color blue and font-size 12px">
+          <text x="20" y="80" font-family="JetBrains Mono, monospace" font-size="26" font-weight="600" fill="var(--html)">h1</text>
+          <text x="66" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--muted)">{</text>
+          <text x="90" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--css)">color</text>
+          <text x="168" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--muted)">:</text>
+          <text x="186" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--good)">blue</text>
+          <text x="250" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--muted)">;</text>
+          <text x="274" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--css)">font-size</text>
+          <text x="410" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--muted)">:</text>
+          <text x="428" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--good)">12px</text>
+          <text x="496" y="80" font-family="JetBrains Mono, monospace" font-size="26" fill="var(--muted)">;}</text>
+          <path d="M20 40 h30" stroke="var(--html)" stroke-width="2"/><text x="20" y="30" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--html)">Selector</text>
+          <path d="M90 40 h168" stroke="var(--bs)" stroke-width="2"/><text x="90" y="30" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--bs)">Declaration</text>
+          <path d="M274 40 h210" stroke="var(--bs)" stroke-width="2"/><text x="274" y="30" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--bs)">Declaration</text>
+          <path d="M120 92 v20" stroke="var(--css)" stroke-width="2"/><text x="96" y="130" font-family="Source Sans 3, sans-serif" font-size="14" fill="var(--css)">Property</text>
+          <path d="M210 92 v20" stroke="var(--good)" stroke-width="2"/><text x="192" y="130" font-family="Source Sans 3, sans-serif" font-size="14" fill="var(--good)">Value</text>
+          <path d="M340 92 v20" stroke="var(--css)" stroke-width="2"/><text x="316" y="130" font-family="Source Sans 3, sans-serif" font-size="14" fill="var(--css)">Property</text>
+          <path d="M455 92 v20" stroke="var(--good)" stroke-width="2"/><text x="437" y="130" font-family="Source Sans 3, sans-serif" font-size="14" fill="var(--good)">Value</text>
+        </svg>
+      </div>
+      <p>A rule = <span class="kw">selector</span> (which elements) + <span class="kw">declaration</span> (how to style them). Each declaration = <span class="kw">property : value</span>, ending with a semicolon.</p>
+      <div class="grid3">
+        <div class="card k"><h4>Element selector</h4><p><code>p { }</code> — all &lt;p&gt; elements</p></div>
+        <div class="card k"><h4>ID selector: #</h4><p><code>#intro { }</code> → <code>&lt;p id="intro"&gt;</code><br>For <b>one unique</b> element</p></div>
+        <div class="card k"><h4>Class selector: .</h4><p><code>.center { }</code> → <code>&lt;p class="center"&gt;</code><br>For <b>many</b> elements</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="id vs class, grouping and comments">
+<style>
+  #title { color: crimson; }          /* id: only one element */
+  .note  { background: #fff3c4; }     /* class: reusable */
+  h4, p  { font-family: Georgia; }    /* grouping with a comma */
+</style>
+<h4 id="title">Unique heading (id)</h4>
+<p class="note">First note (class)</p>
+<p class="note">Second note (same class)</p>
+      </script>
+      <div class="mnemonic"><b>Memory trick:</b> <b>#</b> ID = your <b>ID card</b>, only one person has it. <b>.</b> class = a <b>classroom</b>, many students share it.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>What are the three ways to insert CSS? Give an example of each.</summary><div><p>Inline: <code>&lt;h1 style="color:red"&gt;</code>. Internal: <code>&lt;style&gt; h1{color:red} &lt;/style&gt;</code> in head. External: a .css file linked with <code>&lt;link rel="stylesheet" type="text/css" href="mystyle.css"&gt;</code>.</p></div></details>
+        <details><summary>What is the cascading order?</summary><div><p>1. Inline style (highest) 2. External and internal style sheets 3. Browser default (lowest).</p></div></details>
+        <details><summary>Difference between ID and class selector?</summary><div><p>ID (<code>#name</code>) styles one unique element. Class (<code>.name</code>) can be applied to many elements.</p></div></details>
+        <details><summary>What does a CSS rule consist of?</summary><div><p>A selector (the element(s) the rule applies to) and a declaration block of property: value pairs.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L5 CSS3 PDF ============ -->
+  <section class="lec css" id="l5b">
+    <div class="lec-head">
+      <span class="tag">Lecture 5 · CSS3</span>
+      <h2>CSS3 Features</h2>
+      <p>CSS3 adds rounded corners, shadows, transforms, transitions and columns without images, Photoshop, Flash or JavaScript.</p>
+      <label><input type="checkbox" data-done="l5b"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.4</span>What is CSS3?</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Timeline</h4><ul><li>First CSS published: <b>late 1996</b> (fonts, colors, backgrounds, alignment)</li><li>Earliest CSS3 drafts: <b>June 1999</b></li><li>CSS3 is split into separate documents called <b>modules</b></li></ul></div>
+        <div class="card k"><h4>Important modules</h4><p>Selectors · Box Model · Backgrounds and Borders · Text Effects · 2D/3D Transformations · Animations · Multiple Column Layout · User Interface</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.5</span>Borders, shadows, backgrounds</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="border-radius, box-shadow, text-shadow">
+<style>
+  .r { border: 2px solid #2557d6; border-radius: 25px; padding: 10px; }
+  .s { background: yellow; box-shadow: 10px 10px 5px #888888;
+       width: 160px; height: 60px; margin: 14px 0; }
+  h2 { text-shadow: 5px 5px 5px #FF0000; }
+</style>
+<div class="r">Rounded corners with border-radius</div>
+<div class="s">box-shadow</div>
+<h2>Text shadow</h2>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Property</th><th>What it does</th><th>Example</th></tr>
+        <tr><td><code>border-radius</code></td><td>Rounded corners (CSS2 needed images for each corner)</td><td><code>border-radius: 25px;</code></td></tr>
+        <tr><td><code>box-shadow</code></td><td>Shadow behind a box: h-offset v-offset blur color</td><td><code>10px 10px 5px #888</code></td></tr>
+        <tr><td><code>border-image</code></td><td>Use an image as a border (sliced into 9 sections)</td><td><code>border-image: url(b.png) 30 round;</code></td></tr>
+        <tr><td><code>background-size</code></td><td>Size of the background image (before CSS3 it was the image's real size)</td><td><code>background-size: 80px 60px;</code></td></tr>
+        <tr><td><code>text-shadow</code></td><td>Shadow on text</td><td><code>5px 5px 5px #FF0000</code></td></tr>
+        <tr><td><code>word-wrap</code></td><td>Lets long words break onto the next line</td><td><code>word-wrap: break-word;</code></td></tr>
+      </table></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.6</span>Transforms (hover or tap each box)</h3>
+      <p>A transform changes an element's <b>shape, size and position</b>: move, scale, turn, spin, stretch.</p>
+      <div class="tf-row">
+        <div class="tf" tabindex="0" style="--t:translate(30px,20px)"><div></div><code>translate(30px,20px)</code></div>
+        <div class="tf" tabindex="0" style="--t:rotate(30deg)"><div></div><code>rotate(30deg)</code></div>
+        <div class="tf" tabindex="0" style="--t:scale(1.6,0.7)"><div></div><code>scale(1.6,0.7)</code></div>
+        <div class="tf" tabindex="0" style="--t:skew(30deg,20deg)"><div></div><code>skew(30deg,20deg)</code></div>
+      </div>
+      <div class="grid2">
+        <div class="card k"><h4>translate(x,y)</h4><p>Moves the element from its current position.</p></div>
+        <div class="card k"><h4>rotate(deg)</h4><p>Turns clockwise by the given degrees.</p></div>
+        <div class="card k"><h4>scale(x,y)</h4><p>Grows/shrinks width and height. <code>scale(2,4)</code> = 2× wide, 4× tall.</p></div>
+        <div class="card k"><h4>skew(x,y)</h4><p>Slants the element along the X and Y axes.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">5.7</span>Transitions, columns, user interface</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Transition — hover over the blue box">
+<style>
+  .grow { width: 100px; height: 60px; background: #2557d6;
+          transition: width 2s; }
+  .grow:hover { width: 300px; }
+</style>
+<div class="grow"></div>
+      </script>
+      <p>A <b>transition</b> lets an element change <b>gradually</b> from one style to another, without Flash or JavaScript.</p>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Multiple columns (like a newspaper)">
+<style>
+  .news { column-count: 3; column-gap: 40px; column-rule: 3px outset #ff00ff; }
+</style>
+<div class="news">CSS3 lets us lay out text in multiple columns, like in newspapers. The column-count property sets how many columns, column-gap sets the space between them, and column-rule draws a line between the columns.</div>
+      </script>
+      <div class="grid3">
+        <div class="card k"><h4>resize</h4><p>Whether the user can resize an element: <code>horizontal</code>, <code>vertical</code>, <code>both</code>. Needs <code>overflow: auto</code>.</p></div>
+        <div class="card k"><h4>box-sizing</h4><p>Whether padding and border are included in width/height.</p></div>
+        <div class="card k"><h4>outline-offset</h4><p>Draws the outline beyond the border edge.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="resize (drag the bottom-right corner) and outline-offset">
+<style>
+  .rs { border: 2px solid; padding: 10px 40px; width: 220px; height: 70px;
+        resize: both; overflow: auto; }
+  .oo { border: 2px solid black; outline: 2px solid red;
+        outline-offset: 15px; margin: 26px; padding: 6px; }
+</style>
+<div class="rs">Resize me</div>
+<div class="oo">Outline is 15px outside the border</div>
+      </script>
+      <div class="tip"><b>Outlines differ from borders in two ways:</b> outlines do <b>not take up space</b>, and outlines may be non-rectangular.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>What is CSS3? Name its important modules.</summary><div><p>The latest standard of CSS, split into modules: Selectors, Box Model, Backgrounds and Borders, Text Effects, 2D/3D Transformations, Animations, Multiple Column Layout, User Interface.</p></div></details>
+        <details><summary>Name the CSS3 border properties.</summary><div><p><code>border-radius</code>, <code>box-shadow</code>, <code>border-image</code>.</p></div></details>
+        <details><summary>List the 2D transform methods with an example.</summary><div><p><code>translate(50px,100px)</code>, <code>rotate(30deg)</code>, <code>scale(2,4)</code>, <code>skew(30deg,20deg)</code>.</p></div></details>
+        <details><summary>Two differences between outline and border?</summary><div><p>Outlines do not take up space, and they may be non-rectangular. Outline is drawn outside the border and does not change the element's size.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L6 CSS3 notes ============ -->
+  <section class="lec css" id="l6">
+    <div class="lec-head">
+      <span class="tag">Lecture 6 · CSS3 Notes</span>
+      <h2>CSS Properties, Layout &amp; Responsive Design</h2>
+      <p>The biggest lecture. Focus hardest on: box model, display, position, float, selectors, flexbox, media queries and units.</p>
+      <label><input type="checkbox" data-done="l6"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.1</span>Backgrounds, borders, margin &amp; padding</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Background</h4><ul><li><code>background-color</code></li><li><code>background-image</code></li><li><code>background-repeat</code>: repeat-x, repeat-y, no-repeat</li><li><code>background-position</code>: right top</li><li><code>background-attachment</code>: fixed (does not scroll)</li><li><code>background</code>: shorthand for all</li></ul></div>
+        <div class="card k"><h4>Border</h4><ul><li><code>border-style</code>: dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden</li><li><code>border-width</code>: thin, medium, thick, px</li><li><code>border-color</code></li><li>Shorthand: <code>border: 2px solid red;</code> (style is required)</li></ul></div>
+      </div>
+      <div class="tip"><b>The 1-to-4 value rule</b> (margin, padding, border): values go <b>clockwise</b> — <b>top, right, bottom, left</b>. <code>margin: 10px 20px;</code> = top/bottom 10px, left/right 20px. Memory trick: <b>TRouBLe</b>.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.2</span>The box model (play with it)</h3>
+      <p>Every HTML element is a box: <b>content</b> → <b>padding</b> (inside border, transparent) → <b>border</b> → <b>margin</b> (outside border, transparent). <code>width</code> and <code>height</code> set the <b>content</b> size only.</p>
+      <div class="widget" id="bmw">
+        <div class="ctrls">
+          <label>margin <input type="range" id="bmM" min="0" max="40" value="20"></label>
+          <label>border <input type="range" id="bmB" min="0" max="20" value="6"></label>
+          <label>padding <input type="range" id="bmP" min="0" max="40" value="16"></label>
+          <span class="seg" role="group" aria-label="box-sizing"><button type="button" id="bsC" aria-pressed="true">content-box</button><button type="button" id="bsB" aria-pressed="false">border-box</button></span>
+        </div>
+        <div class="bm-wrap"><div class="bm">
+          <div class="lay m" id="bmLm"><span class="lbl">margin</span>
+            <div class="lay b" id="bmLb"><span class="lbl">border</span>
+              <div class="lay pd" id="bmLp"><span class="lbl">padding</span>
+                <div class="c" id="bmC">content 200px</div>
+              </div></div></div></div></div>
+        <div class="readout" id="bmOut"></div>
+      </div>
+      <div class="tip"><b>Exam formula:</b> total width = width + left/right padding + left/right border + left/right margin. With <code>box-sizing: border-box</code>, padding and border are <b>included</b> in the width.</div>
+      <div class="grid2">
+        <div class="card k"><h4>Width &amp; height</h4><p>Values: auto, length (px, cm), %. <code>max-width</code> overrides width and handles small windows better. Also <code>min-width</code>, <code>max-height</code>, <code>min-height</code>.</p></div>
+        <div class="card k"><h4>Outline</h4><p>A line drawn <b>outside the border</b>. It is <b>not part of the element's size</b>. Properties: outline-style, outline-width, outline-color, outline-offset, outline (shorthand).</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.3</span>Text, font and links</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Text properties</h4><ul><li><code>color</code></li><li><code>text-align</code>: left, right, center, justify</li><li><code>text-decoration</code>: overline, line-through, underline, none (remove link underline)</li><li><code>text-transform</code>: uppercase, lowercase, capitalize</li><li><code>text-indent</code>, <code>letter-spacing</code>, <code>word-spacing</code>, <code>line-height</code>, <code>direction</code> (rtl)</li></ul></div>
+        <div class="card k"><h4>Font properties</h4><ul><li><code>font-family</code> (give fallbacks, end with a generic family)</li><li><code>font-size</code>: px, em, %. <b>1em = current font size, 16px by default</b></li><li><code>font-style</code>: normal, italic, oblique</li><li><code>font-weight</code>: normal, bold</li><li><code>font-variant</code>: normal, small-caps</li><li><code>font</code>: all in one</li></ul></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Generic font families">
+<p style="font-family: 'Times New Roman', Times, serif">serif — small lines at the ends of characters</p>
+<p style="font-family: Arial, Helvetica, sans-serif">sans-serif — no lines ("sans" means without); easier to read on screens</p>
+<p style="font-family: 'Courier New', monospace">monospace — all characters have the same width</p>
+      </script>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Link states — hover and click the link">
+<style>
+  a:link    { color: blue; }       /* unvisited */
+  a:visited { color: purple; }     /* visited */
+  a:hover   { color: hotpink; text-decoration: none; }  /* mouse over */
+  a:active  { color: orange; }     /* moment it is clicked */
+</style>
+<a href="#l6">Hover over me</a>
+      </script>
+      <div class="mnemonic"><b>Link states MUST be in this order:</b> <b>L</b>o<b>V</b>e <b>HA</b>te → <code>:link</code>, <code>:visited</code>, <code>:hover</code>, <code>:active</code>.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.4</span>Lists and tables in CSS</h3>
+      <div class="grid2">
+        <div class="card k"><h4>List properties</h4><ul><li><code>list-style-type</code>: circle, square, upper-roman, lower-alpha</li><li><code>list-style-image</code>: url("the_url")</li><li><code>list-style-position</code>: inside, outside</li><li><code>list-style</code>: shorthand</li></ul></div>
+        <div class="card k"><h4>Table properties</h4><ul><li><code>border</code>, <code>border-collapse: collapse</code> (single border)</li><li><code>text-align</code>, <code>vertical-align</code></li><li><code>tr:hover</code> — hoverable table</li><li><code>tr:nth-child(even)</code> — zebra stripes</li><li>Responsive: wrap in <code>&lt;div style="overflow-x:auto"&gt;</code></li></ul></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="A fancy zebra table (hover the rows)">
+<style>
+  table { border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; }
+  td, th { border: 1px solid #ddd; text-align: left; padding: 8px; }
+  tr:nth-child(even) { background-color: #f2f2f2; }
+  tr:hover { background-color: #ddd; }
+  th { background-color: #4CAF50; color: white; }
+</style>
+<table>
+  <tr><th>Company</th><th>Country</th></tr>
+  <tr><td>Alfreds Futterkiste</td><td>Germany</td></tr>
+  <tr><td>Berglunds snabbköp</td><td>Sweden</td></tr>
+  <tr><td>Island Trading</td><td>UK</td></tr>
+</table>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.5</span>Display: block, inline, none</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Block vs inline">
+<style>
+  div  { background: #cfe0ff; margin: 4px 0; }
+  span { background: #ffd8c9; }
+</style>
+<div>div is block: new line, full width</div>
+<div>another block</div>
+<span>span is inline,</span> <span>sits on the same line,</span> <span>only as wide as needed</span>
+      </script>
+      <div class="tbl vs"><table>
+        <tr><th></th><th>Block element</th><th>Inline element</th></tr>
+        <tr><td>New line?</td><td>Always starts on a new line</td><td>Does not start on a new line</td></tr>
+        <tr><td>Width</td><td>Full width available</td><td>Only as much as necessary</td></tr>
+        <tr><td>Examples</td><td><code>div h1–h6 p form header footer section</code></td><td><code>span a img</code></td></tr>
+      </table></div>
+      <div class="tbl vs"><table>
+        <tr><th></th><th><code>display: none</code></th><th><code>visibility: hidden</code></th></tr>
+        <tr><td>Hidden?</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Space</td><td>Page shows as if the element is not there</td><td>Still takes up the same space</td></tr>
+        <tr><td>Layout</td><td>Does not affect layout</td><td>Still affects the layout</td></tr>
+      </table></div>
+      <div class="card k"><h4>display: inline-block</h4><p>Like inline (sits in a line, wraps nicely) but <b>can have a width and height</b>. An easier way to make a grid of boxes than float.</p></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.6</span>Position (try each value)</h3>
+      <div class="widget">
+        <div class="ctrls"><span class="seg" role="group" aria-label="position value" id="posSeg">
+          <button type="button" data-p="static" aria-pressed="true">static</button><button type="button" data-p="relative" aria-pressed="false">relative</button><button type="button" data-p="absolute" aria-pressed="false">absolute</button><button type="button" data-p="fixed" aria-pressed="false">fixed</button></span>
+          <span style="font-family:var(--f-mono); font-size:13px">top: 20px; left: 30px;</span></div>
+        <div class="posview" id="posView">
+          <div class="parent" id="posParent"><span style="font-size:11px; color:var(--muted); font-family:var(--f-mono)" id="posPLabel">parent (position: relative)</span>
+            <div class="sib">Sibling 1</div>
+            <div class="ghost" id="posGhost" hidden>original</div>
+            <div class="mover" id="posMover">Me</div>
+            <div class="sib">Sibling 2</div>
+          </div>
+          <span class="vplabel">the viewport (browser window)</span>
+        </div>
+        <div class="readout" id="posOut"></div>
+      </div>
+      <div class="tbl"><table>
+        <tr><th>Value</th><th>Positioned relative to</th><th>Leaves a gap?</th><th>Key fact</th></tr>
+        <tr><td><code>static</code></td><td>Normal page flow</td><td>—</td><td><b>Default.</b> Ignores top/left/right/bottom</td></tr>
+        <tr><td><code>relative</code></td><td>Its own normal position</td><td>Yes</td><td>Other content does not fill its gap</td></tr>
+        <tr><td><code>fixed</code></td><td>The viewport</td><td>No</td><td>Stays in place even when page scrolls</td></tr>
+        <tr><td><code>absolute</code></td><td>Nearest <b>positioned ancestor</b></td><td>No</td><td>If none, uses the body and moves with scrolling</td></tr>
+      </table></div>
+      <div class="tip"><b>“Positioned” element</b> = any element whose position is anything <b>except static</b>. Use <code>z-index</code> to set stack order when elements overlap.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.7</span>Float, clear and centering</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="float wraps text around; clear stops wrapping">
+<style>
+  .pic { float: left; width: 70px; height: 50px; background: #2557d6; margin: 0 10px 4px 0; }
+  .after { clear: left; background: #ffe7a3; }
+  .center { margin: 10px auto; width: 60%; border: 3px solid #73AD21; padding: 6px; }
+</style>
+<div class="pic"></div>
+<p>This text flows around the floated box. Float is used to wrap text around images, and whole layouts can be built with float.</p>
+<p class="after">clear: left — this starts below the float</p>
+<div class="center">margin: auto + width centres a block</div>
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>float</h4><p>Whether an element should float (left/right). Elements after it flow around it.</p></div>
+        <div class="card k"><h4>clear</h4><p>Which sides floating elements are not allowed. If a floated child is taller than its container, add <code>overflow: auto</code> to the container.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.8</span>Selectors: combinators, pseudo-classes, pseudo-elements, attributes</h3>
+      <div class="tbl"><table>
+        <tr><th>Combinator</th><th>Symbol</th><th>Example</th><th>Selects</th></tr>
+        <tr><td>Descendant</td><td>space</td><td><code>div p</code></td><td>All &lt;p&gt; inside a &lt;div&gt; (any depth)</td></tr>
+        <tr><td>Child</td><td><code>&gt;</code></td><td><code>div &gt; p</code></td><td>&lt;p&gt; whose parent is &lt;div&gt; (immediate children)</td></tr>
+        <tr><td>Adjacent sibling</td><td><code>+</code></td><td><code>div + p</code></td><td>The &lt;p&gt; immediately after a &lt;div&gt;</td></tr>
+        <tr><td>General sibling</td><td><code>~</code></td><td><code>p ~ ul</code></td><td>All &lt;ul&gt; after a &lt;p&gt; (same parent)</td></tr>
+      </table></div>
+      <div class="grid2">
+        <div class="card k"><h4>Pseudo-class <code>selector:pseudo-class</code></h4><p>A special <b>state</b> of an element.</p><p><code>:hover :focus :checked :disabled :first-child :last-child :nth-child(n) :not(p) :required :valid</code></p></div>
+        <div class="card k"><h4>Pseudo-element <code>selector::pseudo-element</code></h4><p>A specific <b>part</b> of an element.</p><p><code>::before ::after ::first-letter ::first-line ::selection</code></p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="Pseudo-classes and pseudo-elements in action">
+<style>
+  p::first-letter { font-size: 28px; color: #d9481f; }
+  li:nth-child(even) { background: #e6edfd; }
+  a[href$=".pdf"]::after { content: " (PDF)"; color: gray; }
+</style>
+<p>First letter is big because of ::first-letter.</p>
+<ul><li>one</li><li>two (even)</li><li>three</li><li>four (even)</li></ul>
+<a href="notes.pdf">Download notes</a>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Attribute selector</th><th>Matches elements whose attribute…</th><th>Example</th></tr>
+        <tr><td><code>[attr]</code></td><td>exists</td><td><code>[target]</code></td></tr>
+        <tr><td><code>[attr="value"]</code></td><td>equals value exactly</td><td><code>[target="_blank"]</code></td></tr>
+        <tr><td><code>[attr~="word"]</code></td><td>contains the whole word</td><td><code>[title~="flower"]</code></td></tr>
+        <tr><td><code>[attr|="word"]</code></td><td>is “word” or starts with “word-”</td><td><code>[lang|="en"]</code></td></tr>
+        <tr><td><code>[attr^="x"]</code></td><td><b>starts</b> with x</td><td><code>a[href^="https"]</code></td></tr>
+        <tr><td><code>[attr$="x"]</code></td><td><b>ends</b> with x</td><td><code>a[href$=".pdf"]</code></td></tr>
+        <tr><td><code>[attr*="x"]</code></td><td><b>contains</b> x anywhere</td><td><code>a[href*="uu"]</code></td></tr>
+      </table></div>
+      <div class="mnemonic"><b>Memory trick:</b> <code>^</code> = start (like the start of a regex), <code>$</code> = end (money comes at the end), <code>*</code> = anywhere (wildcard).</div>
+      <div class="grid3">
+        <div class="card"><h4>CSS counters</h4><p><code>counter-reset</code>, <code>counter-increment</code>, <code>counter()</code>, <code>content</code>.</p></div>
+        <div class="card"><h4>Image sprites</h4><p>Many images put into <b>one image</b>; reduces server requests and saves bandwidth.</p></div>
+        <div class="card"><h4>Opacity</h4><p><code>opacity: 0.4</code> (0 = invisible, 1 = solid). Navbar = list of links; dropdown uses <code>:hover</code> + <code>display</code>.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.9</span>CSS3 colours, gradients, shadows, text</h3>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="RGBA / HSL, gradients, shadows">
+<style>
+  .box { padding: 10px; margin: 6px 0; color: #111; }
+  .a { background: rgba(255,0,0,0.3); }
+  .b { background: hsl(220, 80%, 75%); }
+  .c { background: linear-gradient(to right, red, yellow, green); }
+  .d { background: radial-gradient(red, yellow, green); height: 60px; }
+  .e { box-shadow: 10px 10px 5px grey; background: yellow; width: 60%; }
+</style>
+<div class="box a">rgba(255,0,0,0.3) — red with 30% alpha</div>
+<div class="box b">hsl(220, 80%, 75%)</div>
+<div class="box c">linear-gradient(to right, red, yellow, green)</div>
+<div class="box d">radial-gradient</div>
+<div class="box e">box-shadow</div>
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>Colours in CSS3</h4><p>Names, hex, RGB, plus <b>RGBA, HSL, HSLA</b> and <b>opacity</b>. The “A” = alpha (transparency).</p></div>
+        <div class="card k"><h4>Gradients</h4><p><code>linear-gradient(direction, c1, c2…)</code>, <code>radial-gradient(shape size at position, c1, c2…)</code>, plus repeating versions.</p></div>
+        <div class="card k"><h4>Backgrounds</h4><p>Multiple backgrounds; <code>background-size</code>: length, %, <b>contain, cover</b>, auto. <code>background-origin</code>/<code>clip</code>: border-box, padding-box, content-box.</p></div>
+        <div class="card k"><h4>Text &amp; fonts</h4><p><code>text-overflow</code>, <code>word-wrap</code>, <code>word-break</code>. <code>@font-face</code> uses fonts not installed on the user's computer.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.10</span>Flexbox (play with it)</h3>
+      <p>Flexbox = a <b>flex container</b> (<code>display: flex</code>) with <b>flex items</b> inside, laid out along a flex line.</p>
+      <div class="widget">
+        <div class="ctrls">
+          <label>flex-direction <select id="fxDir"><option>row</option><option>row-reverse</option><option>column</option><option>column-reverse</option></select></label>
+          <label>justify-content <select id="fxJus"><option>flex-start</option><option>flex-end</option><option selected>center</option><option>space-between</option><option>space-around</option></select></label>
+          <label>align-items <select id="fxAli"><option>stretch</option><option>flex-start</option><option>flex-end</option><option selected>center</option><option>baseline</option></select></label>
+          <label>flex-wrap <select id="fxWrp"><option>nowrap</option><option>wrap</option><option>wrap-reverse</option></select></label>
+        </div>
+        <div class="flexbox" id="fxBox"><div>1</div><div>2</div><div>3</div><div>4</div></div>
+        <div class="readout" id="fxOut"></div>
+      </div>
+      <div class="grid2">
+        <div class="card k"><h4>Container properties</h4><ul><li><code>flex-direction</code></li><li><code>justify-content</code> — <b>horizontal</b> (main axis)</li><li><code>align-items</code> — <b>vertical</b> (cross axis)</li><li><code>align-content</code> — for flex lines</li><li><code>flex-wrap</code></li></ul></div>
+        <div class="card k"><h4>Item properties</h4><ul><li><code>order</code> — order inside the container</li><li><code>margin: auto</code> — perfect centring</li><li><code>align-self</code> — overrides align-items for one item</li><li><code>flex</code> — weight of the item's length</li></ul></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.11</span>Transforms, transitions, animations, filters</h3>
+      <div class="grid2">
+        <div class="card k"><h4>2D transforms</h4><p><code>translate(x,y)</code> <code>rotate(deg)</code> <code>scale(x,y)</code> <code>skew(x,y)</code> <code>matrix()</code>. Properties: <code>transform</code>, <code>transform-origin</code>.</p></div>
+        <div class="card k"><h4>3D transforms</h4><p><code>translate3d</code> <code>scale3d</code> <code>rotate3d</code> <code>rotateX/Y/Z</code> <code>perspective</code>. Properties: transform-style, perspective-origin, backface-visibility.</p></div>
+        <div class="card k"><h4>Transitions</h4><p>Change values <b>smoothly</b> over a duration. Specify the <b>property</b> and the <b>duration</b>. Timing: <code>ease</code> (default), linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n).</p></div>
+        <div class="card k"><h4>Filters</h4><p>Visual effects (often on images): blur(px), brightness(%), contrast(%), drop-shadow, grayscale(%), hue-rotate(deg), invert(%), opacity(%), saturate(%), sepia(%). Separate many with a space.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-live data-title="@keyframes animation (it loops)">
+<style>
+  @keyframes example {
+    0%   { background-color: red;    left: 0px; }
+    50%  { background-color: blue;   left: 200px; }
+    100% { background-color: red;    left: 0px; }
+  }
+  .anim { position: relative; width: 60px; height: 60px; background: red;
+          animation-name: example; animation-duration: 4s;
+          animation-iteration-count: infinite; }
+</style>
+<div class="anim"></div>
+      </script>
+      <div class="tbl"><table>
+        <tr><th>Animation property</th><th>Meaning</th></tr>
+        <tr><td><code>@keyframes name</code></td><td>Defines the animation steps (from/to or %)</td></tr>
+        <tr><td><code>animation-name</code> / <code>-duration</code> / <code>-delay</code></td><td>Which keyframes, how long, wait before start</td></tr>
+        <tr><td><code>animation-iteration-count</code></td><td>Number or <code>infinite</code></td></tr>
+        <tr><td><code>animation-direction</code></td><td>normal, reverse, alternate…</td></tr>
+        <tr><td><code>animation-timing-function</code></td><td>ease, linear, ease-in, ease-out, ease-in-out</td></tr>
+        <tr><td><code>animation</code> shorthand</td><td>name duration timing-function delay iteration-count direction</td></tr>
+      </table></div>
+      <div class="tip"><b>Transition vs animation:</b> a transition needs a trigger (like <code>:hover</code>) and goes from A to B. An animation uses <code>@keyframes</code>, can have many steps and can run on its own and repeat.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.12</span>Responsive Web Design (RWD)</h3>
+      <p>RWD uses only HTML and CSS to <b>resize, hide, shrink, enlarge or move</b> content so the page looks good on any screen.</p>
+      <script type="text/plain" class="snip" data-lang="html" data-title="1 · The viewport meta tag (in <head>)">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>Viewport rules</h4><ul><li>Viewport = user's visible area of a page; varies by device</li><li>Do NOT use large fixed-width elements</li><li>Do NOT rely on one viewport width</li><li>Use media queries for small vs large screens</li></ul></div>
+        <div class="card k"><h4>Grid view</h4><p>Page divided into columns, usually <b>12 columns</b> with total width <b>100%</b>, shrinking and growing with the window. <code>.col-1 {width: 8.33%}</code> … <code>.col-12 {width: 100%}</code>. Use <code>* {box-sizing: border-box}</code>.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="css" data-title="2 · Media query — CSS that applies only if a condition is true">
+/* @media not|only mediatype and (media feature) { ... } */
+
+@media only screen and (max-width: 500px) {
+  body { background-color: lightblue; }
+}
+
+@media only screen and (orientation: landscape) {
+  body { background-color: lightblue; }
+}
+
+/* Mobile first: design for phones, then add rules for bigger screens */
+[class*="col-"] { width: 100%; }
+@media only screen and (min-width: 768px) {
+  .col-6 { width: 50%; }
+}
+      </script>
+      <div class="grid2">
+        <div class="card k"><h4>Media types &amp; features</h4><p>Types: <code>all</code>, <code>print</code>, <code>screen</code>, <code>speech</code>. Features: width/height of viewport or device, orientation (landscape/portrait), resolution.</p></div>
+        <div class="card k"><h4>Mobile first</h4><p>Design for mobile <b>before</b> desktop, so the page displays faster on smaller devices.</p></div>
+        <div class="card k"><h4>Responsive images</h4><p><code>width: 100%</code> scales up and down. <code>max-width: 100%</code> scales down but <b>never larger than original</b>. background-size: contain / 100% 100% / cover.</p></div>
+        <div class="card k"><h4>&lt;picture&gt; element</h4><p>Defines more than one image; the <b>first <code>&lt;source&gt;</code> that fits</b> is used. Frameworks: Bootstrap, Foundation, Skeleton, w3.css.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="HTML5 <picture>">
+<picture>
+  <source srcset="img_smallflower.jpg" media="(max-width: 400px)">
+  <source srcset="img_flowers.jpg">
+  <img src="img_flowers.jpg" alt="Flowers">
+</picture>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">6.13</span>CSS functions and units</h3>
+      <div class="grid2">
+        <div class="card k"><h4>attr()</h4><p>Returns the value of an attribute: <code>a:after { content: " (" attr(href) ")"; }</code></p></div>
+        <div class="card k"><h4>calc()</h4><p>Performs a calculation: <code>width: calc(100% - 100px);</code></p></div>
+      </div>
+      <div class="grid2">
+        <div class="tbl"><table>
+          <tr><th>Relative unit</th><th>Relative to</th></tr>
+          <tr><td><code>em</code></td><td>font-size of the element</td></tr>
+          <tr><td><code>rem</code></td><td>font-size of the root element</td></tr>
+          <tr><td><code>ex</code></td><td>x-height of current font</td></tr>
+          <tr><td><code>vw</code> / <code>vh</code></td><td>1% of viewport width / height</td></tr>
+          <tr><td><code>vmin</code> / <code>vmax</code></td><td>1% of the smaller / larger dimension</td></tr>
+          <tr><td><code>%</code></td><td>parent element</td></tr>
+          <tr><td><code>ch</code></td><td>width of “0”</td></tr>
+        </table></div>
+        <div class="tbl"><table>
+          <tr><th>Absolute unit</th><th>Size</th></tr>
+          <tr><td><code>cm</code> / <code>mm</code></td><td>centimetres / millimetres</td></tr>
+          <tr><td><code>in</code></td><td>1in = 96px = 2.54cm</td></tr>
+          <tr><td><code>px</code></td><td>1px = 1/96 of 1in</td></tr>
+          <tr><td><code>pt</code></td><td>1pt = 1/72 of 1in</td></tr>
+          <tr><td><code>pc</code></td><td>1pc = 12pt</td></tr>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>Explain the CSS box model with a diagram.</summary><div><p>Draw four nested boxes: <b>Margin</b> (outside) → <b>Border</b> → <b>Padding</b> → <b>Content</b> (inside). Content: where text/images appear. Padding: clear area around content, inside the border. Border: around padding and content. Margin: clear area outside the border. width/height apply to content.</p></div></details>
+        <details><summary>Difference between margin and padding?</summary><div><p>Margin is space <b>outside</b> the border (between elements). Padding is space <b>inside</b> the border (between border and content). Both are transparent.</p></div></details>
+        <details><summary>Explain the four position values.</summary><div><p>static (default, normal flow), relative (moved from its normal position, leaves a gap), fixed (relative to viewport, stays when scrolling), absolute (relative to nearest positioned ancestor, removed from flow).</p></div></details>
+        <details><summary>Difference between display:none and visibility:hidden?</summary><div><p>display:none removes the element; the page shows as if it isn't there. visibility:hidden hides it but it still takes up its space and affects the layout.</p></div></details>
+        <details><summary>What is a media query? Write one.</summary><div><p>A CSS3 technique using the <code>@media</code> rule to apply CSS only if a condition is true. <code>@media only screen and (max-width: 500px) { body { background-color: lightblue; } }</code></p></div></details>
+        <details><summary>Pseudo-class vs pseudo-element?</summary><div><p>Pseudo-class (<code>:hover</code>) styles a special <b>state</b>. Pseudo-element (<code>::first-letter</code>) styles a specific <b>part</b> of an element. Pseudo-class uses one colon, pseudo-element uses two.</p></div></details>
+        <details><summary>What is responsive web design and the viewport meta tag?</summary><div><p>RWD makes pages look good on all devices using HTML and CSS only. The viewport meta tag <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> sets the page width to the device width.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ L7 Bootstrap ============ -->
+  <section class="lec bs" id="l7">
+    <div class="lec-head">
+      <span class="tag">Lecture 7 · Bootstrap 5</span>
+      <h2>Bootstrap 5</h2>
+      <p>The most popular front-end CSS framework for building responsive, mobile-first websites using HTML, CSS and JavaScript. You add ready-made classes instead of writing CSS.</p>
+      <label><input type="checkbox" data-done="l7"> I've revised this</label>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.1</span>Why Bootstrap, and what's new in version 5</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Why use Bootstrap?</h4><ul><li>Increases development speed</li><li>Assures responsiveness</li><li>Prevents repetition between projects</li><li>Adds consistency</li><li>Cross-browser compatibility</li><li>Large community, customizable</li></ul></div>
+        <div class="card k"><h4>Bootstrap 5 vs 4</h4><ul><li><b>jQuery not required</b> anymore</li><li><b>Dropped Internet Explorer</b> support</li><li><b>RTL</b> (right-to-left) text support</li><li>Less JS, more CSS custom properties</li><li>Options available as <b>data-attributes</b></li><li>Enhanced grid; new <b>offcanvas</b>; Popper.js v2</li><li><b>Jumbotron removed</b></li><li>SVG icon library; lighter → better SEO</li></ul></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="CDN boilerplate (simplified)">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="alert alert-primary" role="alert">A simple primary alert—check it out!</div>
+
+  <!-- Popper JS, then Bootstrap JS, at the end of body -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"><\/script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"><\/script>
+</body>
+</html>
+      </script>
+      <div class="tip"><b>Testing the setup:</b> if the blue <code>alert alert-primary</code> box appears, Bootstrap is connected.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.2</span>The grid system (drag the screen width)</h3>
+      <p><b>Container</b> → <b>row</b> → <b>columns</b>. Up to <b>12 columns</b> per row; group them to make wider columns. The layout can change with screen size (e.g. sidebar beside content on desktop, stacked on mobile).</p>
+      <div class="cols12" aria-label="12 column grid">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+        <span class="w" style="--s:8">col-8</span><span class="w" style="--s:4">col-4</span>
+        <span class="w" style="--s:4">col-4</span><span class="w" style="--s:4">col-4</span><span class="w" style="--s:4">col-4</span>
+        <span class="w" style="--s:6">col-6</span><span class="w" style="--s:6">col-6</span>
+      </div>
+      <div class="widget">
+        <div class="ctrls"><label>Screen width <input type="range" id="gw" min="320" max="1440" value="1000" step="10"></label><span class="bp-pill" id="gwOut"></span></div>
+        <div class="bsframe" id="gFrame">
+          <div class="bsrow" id="gRow"></div>
+        </div>
+        <div class="readout">&lt;div class="col-12 col-md-6 col-lg-4"&gt; ×3  +  &lt;div class="col-md-8 col-12"&gt;Main&lt;/div&gt;&lt;div class="col-md-4 col-12"&gt;Side Bar&lt;/div&gt;</div>
+      </div>
+      <div class="tbl"><table>
+        <tr><th>Screen width</th><th>Class infix</th><th>Breakpoint</th></tr>
+        <tr><td>0 – 576px</td><td>none (<code>col-</code>)</td><td>X-Small</td></tr>
+        <tr><td>≥ 576px</td><td><code>sm</code></td><td>Small</td></tr>
+        <tr><td>≥ 768px</td><td><code>md</code></td><td>Medium</td></tr>
+        <tr><td>≥ 992px</td><td><code>lg</code></td><td>Large</td></tr>
+        <tr><td>≥ 1200px</td><td><code>xl</code></td><td>Extra Large</td></tr>
+        <tr><td>≥ 1400px</td><td><code>xxl</code></td><td>Extra Extra Large</td></tr>
+      </table></div>
+      <div class="mnemonic"><b>Memory trick:</b> “<b>S</b>ome <b>M</b>en <b>L</b>ike <b>X</b>tra <b>X</b>L” → sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400. A class like <code>col-md-6</code> means “half width <b>from medium screens and up</b>”.</div>
+      <div class="grid2">
+        <div class="card k"><h4>.container</h4><p>Responsive <b>fixed width</b> container (has max-width per breakpoint).</p></div>
+        <div class="card k"><h4>.container-fluid</h4><p><b>Full width</b> container spanning the whole viewport.</p></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Grid examples from the slides">
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-12">Main content</div>
+    <div class="col-md-4 col-12">Side Bar</div>
+  </div>
+</div>
+
+<!-- Gutters: g = both directions, gx = horizontal, gy = vertical -->
+<div class="container">
+  <div class="row gx-1">
+    <div class="col-6">1</div>
+    <div class="col-6">2</div>
+  </div>
+</div>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.3</span>Buttons</h3>
+      <div class="widget">
+        <div class="btns">
+          <span style="background:#0d6efd">btn-primary</span><span style="background:#6c757d">btn-secondary</span><span style="background:#198754">btn-success</span><span style="background:#dc3545">btn-danger</span><span style="background:#ffc107; color:#000">btn-warning</span><span style="background:#0dcaf0; color:#000">btn-info</span><span style="background:#f8f9fa; color:#000; border:1px solid #ccc">btn-light</span><span style="background:#212529">btn-dark</span><span style="background:transparent; color:#0d6efd; text-decoration:underline">btn-link</span>
+        </div>
+        <div class="btns o">
+          <span style="--c:#0d6efd">btn-outline-primary</span><span style="--c:#198754">btn-outline-success</span><span style="--c:#dc3545">btn-outline-danger</span><span style="--c:#d39e00">btn-outline-warning</span>
+        </div>
+        <div class="btns" style="align-items:center">
+          <span style="background:#0d6efd; font-size:19px; padding:9px 18px">btn-lg</span><span style="background:#0d6efd">normal</span><span style="background:#0d6efd; font-size:12px; padding:4px 8px">btn-sm</span>
+        </div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Button classes">
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-outline-danger">Danger outline</button>
+<button class="btn btn-lg btn-primary">Large Button</button>
+<button class="btn btn-sm btn-primary">Small Button</button>
+
+<div class="btn-group">            <!-- side by side -->
+  <button type="button" class="btn btn-primary">Apple</button>
+  <button type="button" class="btn btn-primary">Samsung</button>
+</div>
+<div class="btn-group-vertical">   <!-- stacked -->
+  <button type="button" class="btn btn-primary">Sony</button>
+</div>
+      </script>
+      <div class="tip"><b>Pattern:</b> always <code>btn</code> + a colour (<code>btn-primary</code>) and optionally a size (<code>btn-lg</code>/<code>btn-sm</code>). Outline style: <code>btn-outline-*</code>.</div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.4</span>Cards</h3>
+      <div class="grid2">
+        <div class="widget" style="padding:0; overflow:hidden; gap:0">
+          <div style="background:var(--ks); padding:10px 14px; font-size:14px; border-bottom:1px solid var(--line)">card-header</div>
+          <div style="height:70px; background:linear-gradient(135deg,var(--bs),var(--css)); display:grid; place-items:center; color:var(--paper); font-family:var(--f-mono); font-size:12px">card-img-top</div>
+          <div style="padding:14px; display:flex; flex-direction:column; gap:8px"><b style="font-family:var(--f-display)">card-title</b><span style="font-size:14px; color:var(--muted)">card-text inside card-body</span><span class="btns"><span style="background:#0d6efd">See Profile</span></span></div>
+          <div style="background:var(--ks); padding:10px 14px; font-size:14px; border-top:1px solid var(--line)">card-footer</div>
+        </div>
+        <div class="card k"><h4>Card classes</h4><ul><li><code>card</code> — the box</li><li><code>card-body</code> — main content</li><li><code>card-title</code>, <code>card-text</code></li><li><code>card-header</code>, <code>card-footer</code></li><li><code>card-img-top</code> / <code>card-img-bottom</code></li><li>Colours: <code>bg-primary text-white</code>; borders: <code>border-primary</code></li><li><code>card-group</code> — cards joined side by side</li><li><code>shadow</code> (shadow-sm / shadow-lg)</li><li>Size by style (<code>width:18rem</code>) or by grid (<code>col-sm-6</code>)</li></ul></div>
+      </div>
+      <script type="text/plain" class="snip" data-lang="html" data-title="Card with image">
+<div class="card" style="width:400px">
+  <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+  <div class="card-body">
+    <h4 class="card-title">John Doe</h4>
+    <p class="card-text">John Doe is an architect and engineer</p>
+    <a href="#" class="btn btn-primary">See Profile</a>
+  </div>
+</div>
+      </script>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.5</span>Typography and utilities</h3>
+      <div class="tbl"><table>
+        <tr><th>Class</th><th>What it does</th></tr>
+        <tr><td><code>h1</code>…<code>h6</code> (as class)</td><td>Make any element look like a heading: <code>&lt;p class="h1"&gt;</code></td></tr>
+        <tr><td><code>display-1</code>…<code>display-6</code></td><td>Extra large, eye-catching headings</td></tr>
+        <tr><td><code>text-start</code> / <code>text-center</code> / <code>text-end</code></td><td>Text alignment</td></tr>
+        <tr><td><code>list-unstyled</code></td><td>Removes bullets</td></tr>
+        <tr><td><code>list-inline</code> + <code>list-inline-item</code></td><td>List items in one line</td></tr>
+        <tr><td><code>blockquote</code>, <code>blockquote-footer</code></td><td>Quotes with source</td></tr>
+        <tr><td><code>text-primary</code>, <code>text-danger</code>, <code>text-muted</code>…</td><td>Text colour</td></tr>
+        <tr><td><code>bg-primary</code>, <code>bg-warning</code>, <code>bg-gradient</code>…</td><td>Background colour / gradient</td></tr>
+        <tr><td><code>my-4</code>, <code>mb-3</code>, <code>p-3</code></td><td><b>m</b> = margin, <b>p</b> = padding, <b>y</b> = top+bottom, <b>x</b> = left+right, <b>t/b</b> = top/bottom</td></tr>
+      </table></div>
+      <div class="mnemonic"><b>Spacing decoder:</b> <code>my-4</code> = <b>m</b>argin on <b>y</b>-axis (top &amp; bottom) size 4. <code>px-2</code> = <b>p</b>adding left &amp; right size 2.</div>
+      <div class="widget">
+        <div style="display:flex; flex-wrap:wrap; gap:6px">
+          <span style="background:#0d6efd; color:#fff; padding:6px 10px; border-radius:4px; font-size:13px">bg-primary</span>
+          <span style="background:#6c757d; color:#fff; padding:6px 10px; border-radius:4px; font-size:13px">bg-secondary</span>
+          <span style="background:#198754; color:#fff; padding:6px 10px; border-radius:4px; font-size:13px">bg-success</span>
+          <span style="background:#dc3545; color:#fff; padding:6px 10px; border-radius:4px; font-size:13px">bg-danger</span>
+          <span style="background:#ffc107; color:#000; padding:6px 10px; border-radius:4px; font-size:13px">bg-warning</span>
+          <span style="background:#0dcaf0; color:#000; padding:6px 10px; border-radius:4px; font-size:13px">bg-info</span>
+          <span style="background:#f8f9fa; color:#000; padding:6px 10px; border-radius:4px; font-size:13px; border:1px solid #ccc">bg-light</span>
+          <span style="background:#212529; color:#fff; padding:6px 10px; border-radius:4px; font-size:13px">bg-dark</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.6</span>Forms in Bootstrap</h3>
+      <div class="grid2">
+        <div class="card k"><h4>Main classes to remember</h4><ul><li><code>form-control</code> — text, email, password inputs</li><li><code>form-label</code> — labels</li><li><code>form-select</code> — drop-down</li><li><code>form-check</code>, <code>form-check-input</code>, <code>form-check-label</code> — checkbox / radio</li><li><code>form-check-inline</code>, <code>form-switch</code></li><li><code>input-group</code>, <code>input-group-text</code> — add-ons like “@”</li></ul></div>
+        <script type="text/plain" class="snip" data-lang="html" data-title="Input + checkbox">
+<div class="my-3">
+  <label for="userEmail" class="form-label">Email</label>
+  <input type="email" id="userEmail" class="form-control">
+</div>
+<div class="form-check">
+  <input type="checkbox" id="Urdu" class="form-check-input">
+  <label for="Urdu" class="form-check-label">Urdu</label>
+</div>
+<div class="input-group mb-3">
+  <span class="input-group-text">@</span>
+  <input type="text" class="form-control" placeholder="Username">
+</div>
+        </script>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">7.7</span>Carousel and other components</h3>
+      <p>A <b>carousel</b> is a slideshow. Structure: <code>carousel slide</code> → <code>carousel-inner</code> → several <code>carousel-item</code> (one has <code>active</code>), plus <code>carousel-control-prev</code>/<code>next</code> buttons and optional <code>carousel-indicators</code> and <code>carousel-caption</code>. It starts with <code>data-bs-ride="carousel"</code>.</p>
+      <div class="card"><h4>Commonly used components &amp; helpers</h4><p>Spinners · List group · Alerts · Toasts · Modal · Badges · Tooltips · Navbars · Breadcrumbs · Clearfix · Panels · Buttons · Icons · Pagination · Cards · Tables · Popovers · Carousel · Progress bars · Collapse · Gutters · Scrollspy · Dropdowns</p></div>
+    </div>
+
+    <div class="block">
+      <h3><span class="n">?</span>Likely exam questions</h3>
+      <div class="qa">
+        <details><summary>What is Bootstrap? Why use it?</summary><div><p>The most popular front-end CSS framework for responsive, mobile-first websites (HTML/CSS/JS). It increases development speed, assures responsiveness, prevents repetition, adds consistency, ensures cross-browser compatibility, has a large community and is customizable.</p></div></details>
+        <details><summary>Write any five differences between Bootstrap 4 and Bootstrap 5.</summary><div><p>BS5: no jQuery needed; dropped IE support; RTL support; JS minimized in favour of CSS custom properties; options as data-attributes; enhanced grid; new offcanvas component; Popper.js v2; Jumbotron removed; SVG icon library; lighter weight (good for SEO).</p></div></details>
+        <details><summary>Explain the Bootstrap grid system and its breakpoints.</summary><div><p>Container → row → columns, max 12 columns per row. Breakpoints: xs &lt;576px (no infix), sm ≥576, md ≥768, lg ≥992, xl ≥1200, xxl ≥1400. <code>col-md-4</code> = 4 of 12 columns from medium screens up.</p></div></details>
+        <details><summary>Difference between .container and .container-fluid?</summary><div><p><code>.container</code> is a responsive fixed-width container. <code>.container-fluid</code> is full width, spanning the entire viewport.</p></div></details>
+        <details><summary>Write code for a row with a 2/3 main area and a 1/3 sidebar that stack on mobile.</summary><div><p><code>&lt;div class="container"&gt;&lt;div class="row"&gt;&lt;div class="col-md-8 col-12"&gt;Main&lt;/div&gt;&lt;div class="col-md-4 col-12"&gt;Sidebar&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIFFERENCES ============ -->
+  <section class="lec x" id="vs">
+    <div class="lec-head">
+      <span class="tag">Revision · all lectures</span>
+      <h2>“Differentiate between…” cheat sheet</h2>
+      <p>Difference questions are the easiest marks in a web-tech paper. Learn these in pairs.</p>
+    </div>
+    <div class="tbl vs"><table>
+      <tr><th>Pair</th><th>First</th><th>Second</th></tr>
+      <tr><td>&lt;ul&gt; vs &lt;ol&gt;</td><td>Bullets, order doesn't matter</td><td>Numbers/letters, order matters</td></tr>
+      <tr><td>Relative vs absolute URL</td><td>Path from current file (<code>../a.html</code>)</td><td>Entire URL (<code>http://…</code>)</td></tr>
+      <tr><td>&lt;th&gt; vs &lt;td&gt;</td><td>Header cell, bold &amp; centered</td><td>Normal data cell</td></tr>
+      <tr><td>rowspan vs colspan</td><td>Merge cells downward across rows</td><td>Merge cells sideways across columns</td></tr>
+      <tr><td>GET vs POST</td><td>Data in URL, visible, ~2048 chars, bookmarkable</td><td>Data in body, hidden, no limit, for passwords</td></tr>
+      <tr><td>Checkbox vs radio</td><td>Select many</td><td>Select only one (same name)</td></tr>
+      <tr><td>&lt;object&gt; vs &lt;embed&gt;</td><td>Embedded object, all browsers, plug-ins</td><td>External app, usually audio/video</td></tr>
+      <tr><td>Inline vs internal vs external CSS</td><td>style attribute: one element</td><td>&lt;style&gt;: one page · .css file: whole site</td></tr>
+      <tr><td>ID vs class</td><td><code>#id</code>, unique, one element</td><td><code>.class</code>, reusable, many elements</td></tr>
+      <tr><td>Margin vs padding</td><td>Outside the border</td><td>Inside the border</td></tr>
+      <tr><td>Border vs outline</td><td>Part of the box size</td><td>Outside border, takes no space, may be non-rectangular</td></tr>
+      <tr><td>Block vs inline</td><td>New line, full width (div, p, h1)</td><td>Same line, needed width (span, a, img)</td></tr>
+      <tr><td>display:none vs visibility:hidden</td><td>Removed, no space</td><td>Invisible, keeps its space</td></tr>
+      <tr><td>relative vs absolute position</td><td>From its normal spot, leaves gap</td><td>From nearest positioned ancestor, removed from flow</td></tr>
+      <tr><td>fixed vs absolute</td><td>Relative to viewport, doesn't scroll</td><td>Relative to positioned ancestor, scrolls with page</td></tr>
+      <tr><td>Pseudo-class vs pseudo-element</td><td><code>:hover</code> — a state</td><td><code>::first-line</code> — a part</td></tr>
+      <tr><td>Transition vs animation</td><td>A → B on a trigger</td><td>@keyframes, many steps, can repeat on its own</td></tr>
+      <tr><td>em vs rem</td><td>Element's font size</td><td>Root element's font size</td></tr>
+      <tr><td>width:100% vs max-width:100% (img)</td><td>Scales up and down</td><td>Scales down, never above original size</td></tr>
+      <tr><td>content-box vs border-box</td><td>Width = content only (default)</td><td>Width includes padding + border</td></tr>
+      <tr><td>.container vs .container-fluid</td><td>Fixed width per breakpoint</td><td>Full viewport width</td></tr>
+      <tr><td>Bootstrap 4 vs 5</td><td>Needs jQuery, supports IE, has Jumbotron</td><td>No jQuery, no IE, RTL, offcanvas, xxl breakpoint</td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="lec x" id="quiz">
+    <div class="lec-head">
+      <span class="tag">Self-test</span>
+      <h2>Exam practice quiz</h2>
+      <p>Tap an answer to check it. Wrong answers show the explanation. Filter by lecture to focus on your weak spots.</p>
+    </div>
+    <div class="quiz-top">
+      <div class="score" id="qScore">0 / 0 <small>answered correctly</small></div>
+      <button class="btn" type="button" id="qReset">Start again</button>
+    </div>
+    <div class="qfilter" id="qFilter"></div>
+    <div id="qList" style="display:flex; flex-direction:column; gap:12px"></div>
+  </section>
+
+  <footer>Built from Lecture 1 – Lecture 7 (Web Technology, Zain Ul Islam Adil) and the CSS3 notes by Rex Wang. Your ticks are saved in this browser only.</footer>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" data-manual></script>
+<script>
+(function(){
+  /* ---------- code snippets with live output ---------- */
+  var BASE = '<style>:host{all:initial;display:block;font-family:"Times New Roman",Times,serif;font-size:16px;color:#151a2d;line-height:1.4} *{box-sizing:content-box} table{border-color:#888} input,select,textarea,button{font:13px Arial,sans-serif;margin:3px 2px} h1{font-size:2em;margin:.4em 0} h2{font-size:1.5em;margin:.4em 0} h3{font-size:1.17em;margin:.4em 0} h4{margin:.4em 0} p{margin:.6em 0} ul,ol{margin:.4em 0} a{color:#0000EE}</style>';
+  document.querySelectorAll('script.snip').forEach(function(s){
+    var code = s.textContent.replace(/^\s*\n/, '').replace(/\s+$/, '');
+    var ind = code.match(/^[ \t]*/)[0].length;
+    if (ind) code = code.split('\n').map(function(l){ return l.slice(Math.min(ind, l.match(/^[ \t]*/)[0].length)); }).join('\n');
+    code = code.replace(/<\\\//g, '</');
+    var lang = s.dataset.lang || 'html';
+    var fig = document.createElement('figure'); fig.className = 'snip'; fig.style.margin = '0';
+    var bar = document.createElement('div'); bar.className = 'snip-bar';
+    var t = document.createElement('span'); t.textContent = (s.dataset.title || lang.toUpperCase());
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', function(){
+      var done = function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); };
+      try { navigator.clipboard.writeText(code).then(done, function(){ selectPre(); }); } catch(e){ selectPre(); }
+    });
+    bar.appendChild(t); bar.appendChild(b);
+    var pre = document.createElement('pre'); var c = document.createElement('code');
+    c.className = 'language-' + (lang === 'html' ? 'markup' : lang); c.textContent = code; pre.appendChild(c);
+    function selectPre(){ var r = document.createRange(); r.selectNodeContents(c); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = 'Press Ctrl+C'; }
+    fig.appendChild(bar); fig.appendChild(pre);
+    if (s.hasAttribute('data-live')) {
+      var out = document.createElement('div'); out.className = 'out';
+      var lab = document.createElement('div'); lab.className = 'out-label'; lab.textContent = 'Browser shows';
+      var host = document.createElement('div'); host.className = 'out-host';
+      out.appendChild(lab); out.appendChild(host); fig.appendChild(out);
+      try {
+        var root = host.attachShadow({mode:'open'});
+        var body = code.replace(/<\/?(html|head|body)>/g, '').replace(/<title>[\s\S]*?<\/title>/, '');
+        root.innerHTML = BASE + body;
+        root.querySelectorAll('form').forEach(function(f){ f.addEventListener('submit', function(e){ e.preventDefault(); }); });
+        root.querySelectorAll('a[href]').forEach(function(a){ a.addEventListener('click', function(e){ if (!a.getAttribute('href').startsWith('#l')) e.preventDefault(); }); });
+      } catch(e){ host.textContent = 'Preview not available in this browser.'; }
+    }
+    s.replaceWith(fig);
+  });
+  if (window.Prism) Prism.highlightAll();
+
+  /* ---------- progress ---------- */
+  var KEY = 'wt-exam-done';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){}
+  var boxes = document.querySelectorAll('input[data-done]');
+  function paint(){
+    var n = 0;
+    boxes.forEach(function(x){ var id = x.dataset.done; x.checked = !!done[id]; if (done[id]) n++;
+      var a = document.querySelector('.nav a[data-l="'+id+'"]'); if (a) a.classList.toggle('done', !!done[id]); });
+    document.getElementById('progTxt').textContent = n + ' of ' + boxes.length + ' lectures revised';
+    document.getElementById('progBar').style.width = (n / boxes.length * 100) + '%';
+  }
+  boxes.forEach(function(x){ x.addEventListener('change', function(){ done[x.dataset.done] = x.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e){} paint(); }); });
+  paint();
+
+  /* ---------- box model ---------- */
+  var bm = { m: document.getElementById('bmM'), b: document.getElementById('bmB'), p: document.getElementById('bmP') };
+  var sizing = 'content-box';
+  function drawBM(){
+    var m = +bm.m.value, b = +bm.b.value, p = +bm.p.value, W = 200;
+    document.getElementById('bmLm').style.setProperty('--p', m + 'px');
+    document.getElementById('bmLb').style.setProperty('--p', b + 'px');
+    document.getElementById('bmLp').style.setProperty('--p', p + 'px');
+    var content = sizing === 'content-box' ? W : Math.max(0, W - 2*p - 2*b);
+    var c = document.getElementById('bmC'); c.style.width = (content * 0.9) + 'px'; c.textContent = 'content ' + content + 'px';
+    var visible = content + 2*p + 2*b;
+    document.getElementById('bmOut').textContent =
+      'div { width: 200px; padding: ' + p + 'px; border: ' + b + 'px solid; margin: ' + m + 'px; box-sizing: ' + sizing + '; }\n' +
+      (sizing === 'content-box'
+        ? 'Visible box width = 200 + 2×' + p + ' + 2×' + b + ' = ' + visible + 'px'
+        : 'Visible box width = 200px (padding and border are inside it; content shrinks to ' + content + 'px)') +
+      '\nSpace taken incl. margin = ' + visible + ' + 2×' + m + ' = ' + (visible + 2*m) + 'px';
+  }
+  ['m','b','p'].forEach(function(k){ bm[k].addEventListener('input', drawBM); });
+  [['bsC','content-box'],['bsB','border-box']].forEach(function(pair){
+    document.getElementById(pair[0]).addEventListener('click', function(){ sizing = pair[1];
+      document.getElementById('bsC').setAttribute('aria-pressed', sizing === 'content-box');
+      document.getElementById('bsB').setAttribute('aria-pressed', sizing === 'border-box'); drawBM(); });
+  });
+  drawBM();
+
+  /* ---------- position ---------- */
+  var mover = document.getElementById('posMover'), ghost = document.getElementById('posGhost'), parent = document.getElementById('posParent'), view = document.getElementById('posView');
+  var notes = {
+    static: 'position: static (default)\ntop/left are IGNORED. The box stays in normal flow.',
+    relative: 'position: relative\nMoved 20px down and 30px right FROM ITS OWN normal spot.\nThe dashed gap it left behind is NOT filled by Sibling 2.',
+    absolute: 'position: absolute\nRemoved from the flow (Sibling 2 moves up into its place).\nPlaced 20px/30px from the nearest POSITIONED ancestor (the dashed parent).',
+    fixed: 'position: fixed\nPlaced 20px/30px from the VIEWPORT (outer frame), ignoring the parent.\nIt would stay there even when the page scrolls.'
+  };
+  function setPos(p){
+    document.querySelectorAll('#posSeg button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.p === p); });
+    parent.insertBefore(mover, parent.querySelectorAll('.sib')[1]);
+    mover.style.position = 'static'; mover.style.top = ''; mover.style.left = '';
+    ghost.hidden = true;
+    if (p === 'relative') {
+      ghost.style.top = mover.offsetTop + 'px'; ghost.style.left = mover.offsetLeft + 'px';
+      ghost.style.width = mover.offsetWidth + 'px'; ghost.style.height = mover.offsetHeight + 'px';
+      ghost.hidden = false;
+    }
+    if (p === 'fixed') { view.appendChild(mover); mover.style.position = 'absolute'; }
+    else if (p !== 'static') { mover.style.position = p; }
+    if (p !== 'static') { mover.style.top = '20px'; mover.style.left = '30px'; }
+    document.getElementById('posOut').textContent = notes[p];
+  }
+  document.querySelectorAll('#posSeg button').forEach(function(x){ x.addEventListener('click', function(){ setPos(x.dataset.p); }); });
+  setPos('static');
+
+  /* ---------- flexbox ---------- */
+  var fx = ['fxDir','fxJus','fxAli','fxWrp'].map(function(id){ return document.getElementById(id); });
+  function drawFx(){
+    var box = document.getElementById('fxBox');
+    box.style.flexDirection = fx[0].value; box.style.justifyContent = fx[1].value; box.style.alignItems = fx[2].value; box.style.flexWrap = fx[3].value;
+    document.getElementById('fxOut').textContent = '.flex-container {\n  display: flex;\n  flex-direction: ' + fx[0].value + ';\n  justify-content: ' + fx[1].value + ';\n  align-items: ' + fx[2].value + ';\n  flex-wrap: ' + fx[3].value + ';\n}';
+  }
+  fx.forEach(function(s){ s.addEventListener('change', drawFx); }); drawFx();
+
+  /* ---------- bootstrap grid ---------- */
+  var BPS = [['xxl',1400],['xl',1200],['lg',992],['md',768],['sm',576],['xs',0]];
+  var items = [ {t:'col-12 col-md-6 col-lg-4', s:{xs:12, md:6, lg:4}, n:'1'}, {t:'col-12 col-md-6 col-lg-4', s:{xs:12, md:6, lg:4}, n:'2'}, {t:'col-12 col-md-6 col-lg-4', s:{xs:12, md:6, lg:4}, n:'3'},
+                {t:'col-md-8 col-12', s:{xs:12, md:8}, n:'Main'}, {t:'col-md-4 col-12', s:{xs:12, md:4}, n:'Side Bar'} ];
+  var order = ['xs','sm','md','lg','xl','xxl'];
+  function drawGrid(){
+    var w = +document.getElementById('gw').value, bp = 'xs';
+    for (var i = 0; i < BPS.length; i++) if (w >= BPS[i][1]) { bp = BPS[i][0]; break; }
+    document.getElementById('gwOut').textContent = w + 'px → ' + bp + (bp === 'xs' ? ' (no infix)' : '');
+    var frame = document.getElementById('gFrame'); frame.style.width = Math.round(w / 1440 * 100) + '%'; frame.style.minWidth = '220px';
+    var row = document.getElementById('gRow'); row.innerHTML = '';
+    items.forEach(function(it){
+      var span = 12; for (var j = 0; j <= order.indexOf(bp); j++) if (it.s[order[j]]) span = it.s[order[j]];
+      var d = document.createElement('div'); d.style.width = (span / 12 * 100) + '%';
+      var s = document.createElement('span'); s.textContent = it.n + ' · ' + span + '/12'; d.appendChild(s); row.appendChild(d);
+    });
+  }
+  document.getElementById('gw').addEventListener('input', drawGrid); drawGrid();
+
+  /* transforms: tap toggles on touch */
+  document.querySelectorAll('.tf').forEach(function(t){ t.addEventListener('click', function(){ t.classList.toggle('on'); }); });
+
+  /* ---------- quiz ---------- */
+  var Q = [
+    ['L1','Which extension can an HTML file have?',['.ht','.htm','.hml','.xhtml only'],1,'HTML files use .html or .htm.'],
+    ['L1','In <a href="...">, what does href stand for?',['Hyper reference','Hypertext reference','Home reference','Header reference'],1,'<a> = anchor, href = hypertext reference.'],
+    ['L1','A link to file2.htm in the PARENT folder is written as:',['href="file2.htm"','href="/file2.htm"','href="../file2.htm"','href="up/file2.htm"'],2,'../ means go up one directory.'],
+    ['L1','DTD rules are written in:',['XML','SGML','CSS','JavaScript'],1,'DTD = a collection of rules written in Standard Generalized Markup Language.'],
+    ['L1','Which tag produces superscript text (x²)?',['<sub>','<sup>','<strike>','<super>'],1,'<sup> = superscript, <sub> = subscript.'],
+    ['L1','<ol type="i"> numbers items as:',['1, 2, 3','a, b, c','I, II, III','i, ii, iii'],3,'Lowercase i = lowercase Roman numerals.'],
+    ['L1','Which entity shows a < sign on the page?',['&gt;','&lt;','&amp;','&nbsp;'],1,'&lt; = less than.'],
+    ['L2','For an image map, the <map> name must match the image\'s:',['src','alt','usemap','id'],2,'<img usemap="#workmap"> pairs with <map name="workmap">.'],
+    ['L2','Circle coords in an <area> are:',['x1,y1,x2,y2','center x, center y, radius','width, height','radius only'],1,'circle → center coordinates and radius.'],
+    ['L2','Which attribute stops a form from submitting while the field is empty?',['placeholder','autofocus','required','value'],2,'required forces a value without JavaScript.'],
+    ['L2','Which tag gives an autocomplete list for an input?',['<details>','<datalist>','<select>','<option>'],1,'<datalist> with the input\'s list attribute.'],
+    ['L2','Which tag is used with <details> to show the visible heading?',['<caption>','<figcaption>','<summary>','<legend>'],2,'<summary> is the clickable heading of <details>.'],
+    ['L2','Plug-ins can be added with:',['<plugin> or <app>','<object> or <embed>','<iframe> only','<script>'],1,'Plug-ins are added using <object> or <embed>.'],
+    ['L2','Geolocation gets the user position with:',['getLocation()','getCurrentPosition()','navigator.gps()','position()'],1,'getCurrentPosition(), and only after the user approves.'],
+    ['L3','Which tag creates a table header cell?',['<td>','<tr>','<th>','<thead>'],2,'<th> = table heading cell.'],
+    ['L3','To make a cell cover 3 columns you write:',['rowspan="3"','colspan="3"','span="3"','cols="3"'],1,'colspan spreads across columns.'],
+    ['L3','Which tag gives the table a title?',['<title>','<caption>','<thead>','<th>'],1,'<caption> shows a title for the table.'],
+    ['L4','Which method shows form data in the URL?',['POST','GET','PUT','SEND'],1,'GET puts data in the URL; it is visible and bookmarkable.'],
+    ['L4','Which method is best for passwords?',['GET','POST','Both equal','Neither'],1,'POST sends data in the request body, not in the URL.'],
+    ['L4','enctype needed to upload files:',['text/plain','application/x-www-form-urlencoded','multipart/form-data','file/upload'],2,'multipart/form-data is used for binary data like images.'],
+    ['L4','Multi-line text input uses:',['<input type="multi">','<textarea>','<text>','<input type="area">'],1,'<textarea rows cols>.'],
+    ['L4','Radio buttons act as "choose one" only when they share the same:',['value','id','name','type'],2,'Same name = one group.'],
+    ['L4','Which select attribute lets the user choose several options?',['size','multiple','selected','many'],1,'multiple allows multi-select.'],
+    ['L4','Which input type hides data in the page but still sends it?',['secret','password','hidden','invisible'],2,'type="hidden".'],
+    ['L5','Which way of adding CSS is best for an entire website?',['Inline','Internal','External','Font tag'],2,'An external .css file controls the whole site.'],
+    ['L5','Highest priority in the cascading order is:',['Browser default','External sheet','Internal sheet','Inline style'],3,'Inline > external/internal > browser default.'],
+    ['L5','Selector for an element with id="main":',['.main','#main','main','*main'],1,'# for id, . for class.'],
+    ['L5','In h1 {color: red;}, "color" is the:',['selector','value','property','declaration block'],2,'property: value.'],
+    ['L5','CSS was created by Håkon Lie in:',['1990','1994','1999','2004'],1,'1994; first CSS published late 1996; CSS3 drafts June 1999.'],
+    ['CSS3','Which property makes rounded corners?',['border-round','corner-radius','border-radius','radius'],2,'border-radius.'],
+    ['CSS3','transform: scale(2,4) does what?',['Moves 2px and 4px','Rotates 24deg','Makes it 2× wider and 4× taller','Skews it'],2,'scale(x,y) multiplies width and height.'],
+    ['CSS3','Which is NOT a multiple-column property?',['column-count','column-gap','column-rule','column-float'],3,'The three are count, gap, rule (plus width, span).'],
+    ['CSS3','resize only works when the element has:',['display:none','overflow other than visible','position:fixed','float'],1,'Use overflow:auto with resize.'],
+    ['L6','Space INSIDE the border is called:',['margin','padding','outline','gap'],1,'Padding is inside, margin is outside.'],
+    ['L6','margin: 10px 20px 30px 40px — the left margin is:',['10px','20px','30px','40px'],3,'Clockwise: top, right, bottom, left.'],
+    ['L6','By default 1em equals:',['10px','12px','16px','20px'],2,'1em = current font size, 16px by default.'],
+    ['L6','Correct order of link pseudo-classes:',[':hover :link :visited :active',':link :visited :hover :active',':active :hover :link :visited',':visited :link :active :hover'],1,'LoVe HAte.'],
+    ['L6','Which keeps the element\'s space while hiding it?',['display:none','visibility:hidden','opacity:0 removes space','position:absolute'],1,'visibility:hidden still takes up space.'],
+    ['L6','The default position value is:',['relative','absolute','static','fixed'],2,'static is the default.'],
+    ['L6','position:absolute is placed relative to:',['The viewport always','Its normal position','The nearest positioned ancestor','The next sibling'],2,'Nearest ancestor whose position is not static.'],
+    ['L6','div > p selects:',['All p inside div at any depth','p that are immediate children of div','p right after div','All p after div'],1,'> is the child combinator.'],
+    ['L6','a[href$=".pdf"] matches links whose href:',['starts with .pdf','ends with .pdf','contains .pdf','equals .pdf'],1,'$ = ends with.'],
+    ['L6','::first-letter is a:',['pseudo-class','pseudo-element','combinator','attribute selector'],1,'Double colon = pseudo-element (a part of an element).'],
+    ['L6','In flexbox, justify-content aligns items along the:',['cross axis (vertical)','main axis (horizontal by default)','z-axis','grid line'],1,'justify-content = main axis; align-items = cross axis.'],
+    ['L6','Which rule is used for media queries?',['@import','@media','@keyframes','@font-face'],1,'@media applies CSS only if a condition is true.'],
+    ['L6','A responsive grid view usually has:',['6 columns','10 columns','12 columns','16 columns'],2,'12 columns, 100% total width.'],
+    ['L6','Which unit is relative to the root element\'s font size?',['em','rem','vh','pt'],1,'rem = root em.'],
+    ['L6','box-sizing: border-box means width includes:',['margin','padding and border','only content','outline'],1,'Padding and border are included.'],
+    ['L7','Bootstrap 5 no longer requires:',['CSS','HTML','jQuery','Popper'],2,'jQuery is not required in BS5.'],
+    ['L7','Max columns in a Bootstrap row:',['6','10','12','16'],2,'Up to 12 columns.'],
+    ['L7','The md breakpoint starts at:',['576px','768px','992px','1200px'],1,'sm 576, md 768, lg 992, xl 1200, xxl 1400.'],
+    ['L7','Full-width container class:',['.container','.container-full','.container-fluid','.row-fluid'],2,'.container-fluid spans the viewport.'],
+    ['L7','Which component was removed in Bootstrap 5?',['Card','Jumbotron','Modal','Navbar'],1,'Jumbotron was removed; offcanvas was added.'],
+    ['L7','class="my-4" sets:',['margin on all sides','margin top and bottom','padding left and right','max-width'],1,'m = margin, y = top & bottom.'],
+    ['L7','Bootstrap class for text/email inputs:',['form-input','form-control','input-text','form-field'],1,'form-control.'],
+    ['L7','Which class makes outline buttons?',['btn-border-primary','btn-outline-primary','btn-line','outline-btn'],1,'btn-outline-*.']
+  ];
+  var filter = 'All', answers = {};
+  var tags = ['All','L1','L2','L3','L4','L5','CSS3','L6','L7'];
+  var fwrap = document.getElementById('qFilter');
+  tags.forEach(function(tg){ var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = tg === 'CSS3' ? 'L5 CSS3' : tg;
+    b.setAttribute('aria-pressed', tg === filter); b.addEventListener('click', function(){ filter = tg; fwrap.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); renderQ(); }); fwrap.appendChild(b); });
+  function score(){
+    var right = 0, total = 0; Object.keys(answers).forEach(function(k){ total++; if (answers[k] === Q[k][3]) right++; });
+    document.getElementById('qScore').innerHTML = right + ' / ' + total + ' <small>answered correctly · ' + Q.length + ' questions in total</small>';
+  }
+  function renderQ(){
+    var list = document.getElementById('qList'); list.innerHTML = ''; var n = 0;
+    Q.forEach(function(q, i){
+      if (filter !== 'All' && q[0] !== filter) return; n++;
+      var card = document.createElement('div'); card.className = 'qcard';
+      var h = document.createElement('div'); h.className = 'qh';
+      var tag = document.createElement('i'); tag.textContent = (q[0] === 'CSS3' ? 'L5' : q[0]) + ' · ' + n; var tx = document.createElement('span'); tx.textContent = q[1];
+      h.appendChild(tag); h.appendChild(tx); card.appendChild(h);
+      var opts = document.createElement('div'); opts.className = 'qopts';
+      var why = document.createElement('div'); why.className = 'qwhy'; why.hidden = true; why.textContent = q[4];
+      q[2].forEach(function(o, j){
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = o;
+        b.addEventListener('click', function(){ answers[i] = j; paintQ(); score(); });
+        opts.appendChild(b);
+      });
+      function paintQ(){
+        if (!(i in answers)) return;
+        opts.querySelectorAll('button').forEach(function(b, j){ b.disabled = true; if (j === q[3]) b.classList.add('right'); else if (j === answers[i]) b.classList.add('wrong'); });
+        why.hidden = false; if (answers[i] !== q[3]) why.style.borderLeftColor = 'var(--bad)';
+      }
+      card.appendChild(opts); card.appendChild(why); list.appendChild(card); paintQ();
+    });
+  }
+  document.getElementById('qReset').addEventListener('click', function(){ answers = {}; renderQ(); score(); });
+  renderQ(); score();
+})();
+</script>
+
+</body>
+</html>
